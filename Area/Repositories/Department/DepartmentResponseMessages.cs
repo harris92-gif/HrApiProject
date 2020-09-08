@@ -28,7 +28,7 @@ namespace HrApiProject.Area.Repositories.Department
         {
             ErrorCode ec = new ErrorCode();
             ec.ResponseCode = 1001;
-            ec.Message = "Department Added Successfully";
+            ec.Message = "Department Added Successfully !!";
             return ec;
         }
          public object DepartmentNameUpdated()
