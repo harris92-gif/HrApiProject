@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using HrApiProject.Area.Repositories.Department;
+using HrApiProject.Area.Repositories.Employee;
 
 namespace HrApiProject
 {
@@ -48,6 +49,11 @@ namespace HrApiProject
            services.AddScoped<DepartmentDAL>();
            services.AddScoped<DepartmentResponseMessages>();
            services.AddScoped<DepartmentValidations>();
+
+           services.AddScoped<IEmployeeLogic, EmployeeLogic>();
+           services.AddScoped<EmployeeDAL>();
+           services.AddScoped<EmployeeResponseMessages>();
+           services.AddScoped<EmployeeValidation>();
 
 
            
