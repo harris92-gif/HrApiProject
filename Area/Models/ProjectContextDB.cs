@@ -1,5 +1,6 @@
 using HrApiProject.Area.Models;
 using HrApiProject.Area.Models.Department;
+using HrApiProject.Area.Models.Employee;
 using Microsoft.EntityFrameworkCore;
 namespace HrApiProject.Area.Models
 {
@@ -19,9 +20,27 @@ namespace HrApiProject.Area.Models
 
           public DbSet<DepartmentModel> DepartmentModels {get; set;}
 
-        public DbSet<DepartmentResponse> departmentResponse {get; set;}
+          public DbSet<DepartmentResponse> departmentResponse {get; set;}
+          public DbSet<EmployeeModel> EmployeeModel {get; set;}
 
-        
+          protected override void OnModelCreating(ModelBuilder modelBuilder)
+          {
+              if(_schemaName!=null)
+              {
+                  modelBuilder.HasDefaultSchema(_schemaName);
+              }
+              modelBuilder.HasPostgresExtension("uuid-ossp");
+
+
+              modelBuilder.Entity<EmployeeDetails>(entity=>
+              {
+                  entity.HasNoKey();
+              });          
+
+          }
+
+
+
 
     }
 }
