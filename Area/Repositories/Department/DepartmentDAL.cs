@@ -103,7 +103,7 @@ namespace HrApiProject.Area.Repositories.Department
         }
 
         public async Task<bool> ActivateDepartmentById(Guid BusinessID,Guid DepartmentID)
-            {
+        {
             var theBusinessID = new Npgsql.NpgsqlParameter("@thebusinessid",BusinessID);
             var theDepartmentID = new Npgsql.NpgsqlParameter("@thedeptid",DepartmentID);
 
@@ -121,6 +121,8 @@ namespace HrApiProject.Area.Repositories.Department
             return true;
             
         }
+
+       
         
     }
 }
