@@ -8,10 +8,10 @@ namespace HrApiProject.Area.Repositories.Employee
     {
         Task<bool> AddEmployeeWithDetails(Guid BusinessID , EmployeeModel employeeModel); 
         Task<bool> UpdateEmployeeWithDetailsById(Guid BusinessID ,Guid employeeId, UpdateEmployeeModel updateEmployeeModel);
-        Task<bool> DeactivateEmployeeById(Guid BusinessID ,Guid employeeId);
-        Task<bool> ActivateEmployeeById(Guid BusinessID ,Guid employeeId);
-        Task<object> ShowAllEmployeesWithDetails(Guid businessID);
-        Task<object> ShowEmployeesWithDetailsByID(Guid businessID,Guid employeeID);
+        Task<bool> DeactivateEmployeeById(Guid BusinessID ,Guid employeeId);   
+        Task<bool> ActivateEmployeeById(Guid BusinessID ,Guid employeeId);  
+        Task<object> ShowAllEmployeesWithDetails(Guid businessID);  
+        Task<object> ShowEmployeesWithDetailsByID(Guid businessID,Guid employeeID); 
 
 
 

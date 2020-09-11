@@ -181,7 +181,8 @@ namespace HrApiProject.Area.Repositories.Employee
 
             if(employeeResponse.Count()>0)
             {
-                return employeeResponse;
+                var Response = new{Success ="OK",employeeResponse=employeeResponse};
+                return Response;
             }
             return null;
         }
