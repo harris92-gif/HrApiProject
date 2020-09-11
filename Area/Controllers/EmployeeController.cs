@@ -24,6 +24,12 @@ namespace HrApiProject.Area.Controllers
         [HttpPost("AddEmployeeWithDetails")]
         public async  Task<object> AddEmployeeWithDetails(Guid theBusinessId ,[FromBody] EmployeeModel employeeModel)
         {
+            var errors = _employeeValidation.ValidateEmployeeData(employeeModel);
+            if(errors!=null)
+            {
+                return errors;
+            }
+
             var response = await _employeeLogic.AddEmployeeWithDetails(theBusinessId, employeeModel);
 
             if(response)
@@ -36,6 +42,11 @@ namespace HrApiProject.Area.Controllers
         [HttpPut("UpdateEmployeeWithDetailsByID")]
         public async Task<object> UpdateEmployeeWithDetailsById(Guid theBusinessId ,Guid theEmployeeId,[FromBody] UpdateEmployeeModel updateEmployeeModel) 
         {
+            var errors = _employeeValidation.ValidateUpdateEmployeeData(updateEmployeeModel);
+            if(errors!=null)
+            {
+                return errors;
+            }
             var response = await _employeeLogic.UpdateEmployeeWithDetailsById(theBusinessId,theEmployeeId,updateEmployeeModel);
             if(response)
             {
