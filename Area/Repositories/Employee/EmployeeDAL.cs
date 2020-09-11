@@ -179,14 +179,17 @@ namespace HrApiProject.Area.Repositories.Employee
 
             }).ToList());
 
-
-            return employeeResponse;
+            if(employeeResponse.Count()>0)
+            {
+                return employeeResponse;
+            }
+            return null;
         }
 
         public async Task<object> ShowEmployeesWithDetailsByID(Guid businessID,Guid employeeID)
         {
             var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
-            var employeeId = new Npgsql.NpgsqlParameter("@thebusinessid",employeeID);
+            var employeeId = new Npgsql.NpgsqlParameter("@theempid",employeeID);
 
 
             List<EmployeeResponse> employeeResponse = await Task.Run(()=>_projectContextDB.EmployeeResponse
@@ -225,8 +228,12 @@ namespace HrApiProject.Area.Repositories.Employee
 
             }).ToList());
 
-
-            return employeeResponse;
+            if(employeeResponse.Count()>0)
+            {
+                return employeeResponse;
+            }
+            return null;
+            
         }
 
 
