@@ -2,6 +2,7 @@ using HrApiProject.Area.Models;
 using HrApiProject.Area.Models.CommonModels;
 using HrApiProject.Area.Models.Department;
 using HrApiProject.Area.Models.Employee;
+using HrApiProject.Area.Models.User;
 using Microsoft.EntityFrameworkCore;
 namespace HrApiProject.Area.Models
 {
@@ -27,7 +28,11 @@ namespace HrApiProject.Area.Models
           public DbSet<UpdateEmployeeModel> UpdateEmployeeModel {get; set;}
           public DbSet<CheckStatusModel> CheckStatusModel {get; set;}
 
-            public DbSet<EmployeeResponse> EmployeeResponse {get; set;}
+        public DbSet<EmployeeResponse> EmployeeResponse {get; set;}
+        public DbSet<UserModel> UserModel {get; set;}
+        public DbSet<UserResponse> userResponse {get; set;}
+
+
 
 
 
