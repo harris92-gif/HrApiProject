@@ -6,6 +6,13 @@ namespace HrApiProject.Area.Models.CommonModels
     {
         [Column("status")]
         public bool Status {get; set;}
+
+        [Column("checkbusinessid")]
+         public bool BusinessIDStatus {get; set;}
+
+         [Column("checkemployeeid")]
+        public bool EmployeeIDStatus {get; set;}
+
         
     }
 }

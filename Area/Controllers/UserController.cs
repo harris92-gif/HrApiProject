@@ -93,11 +93,10 @@ namespace HrApiProject.Area.Controllers
                 return   response;
             }
             
-            return  _userValidations.NoRecordFound(); 
-
-            
+            return  _userValidations.NoRecordFound();             
         }
-         [HttpGet("ShowUserById")]
+
+        [HttpGet("ShowUserById")]
         public async Task<object> ShowUserById(Guid userID) 
         {
             var response = await _userLogic.ShowUserById(userID);
@@ -107,7 +106,6 @@ namespace HrApiProject.Area.Controllers
             }
             
            return  _userValidations.UserIdNotFound(userID);
-
             
         }
 
