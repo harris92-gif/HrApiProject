@@ -2,6 +2,7 @@ using HrApiProject.Area.Models;
 using HrApiProject.Area.Models.CommonModels;
 using HrApiProject.Area.Models.Department;
 using HrApiProject.Area.Models.Employee;
+using HrApiProject.Area.Models.Salary;
 using HrApiProject.Area.Models.User;
 using Microsoft.EntityFrameworkCore;
 namespace HrApiProject.Area.Models
@@ -32,6 +33,9 @@ namespace HrApiProject.Area.Models
         public DbSet<UserModel> UserModel {get; set;}
         public DbSet<UserResponse> userResponse {get; set;}
 
+        public DbSet<SalaryModel> SalaryModel {get; set;}
+
+
 
 
 
@@ -54,8 +58,9 @@ namespace HrApiProject.Area.Models
                  modelBuilder.Entity<CheckStatusModel>(entity=>
               {
                   entity.HasNoKey();
-              });             
+              });        
 
+            
           }
 
 

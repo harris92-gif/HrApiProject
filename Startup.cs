@@ -17,6 +17,8 @@ using Microsoft.EntityFrameworkCore;
 using HrApiProject.Area.Repositories.Department;
 using HrApiProject.Area.Repositories.Employee;
 using HrApiProject.Area.Repositories.User;
+using HrApiProject.Area.Repositories.Salary;
+using HrApiProject.Area.Repositories.Common;
 
 namespace HrApiProject
 {
@@ -60,6 +62,16 @@ namespace HrApiProject
            services.AddScoped<UserDAL>();
            services.AddScoped<UserResponseMessages>();
            services.AddScoped<UserValidations>();
+
+           services.AddScoped<ISalaryLogic, SalaryLogic>();
+           services.AddScoped<SalaryDAL>();
+           services.AddScoped<SalaryResponseMessages>();
+           services.AddScoped<SalaryValidation>();
+
+              services.AddScoped<ICommonLogic, CommonLogic>();
+           services.AddScoped<CommonDAL>();
+           services.AddScoped<CommonResponseMessages>();
+           services.AddScoped<CommonValidation>();
 
 
            
