@@ -12,7 +12,7 @@ namespace HrApiProject.Area.Repositories.Salary
         {
             ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
             rcam.ResponseCode = 1001;
-            rcam.ResponseMessage = "Employee Salary Added Successfully";
+            rcam.ResponseMessage = "Employee Salary Added Successfully !!!!!";
             return rcam;
 
         }
