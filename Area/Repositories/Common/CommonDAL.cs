@@ -61,6 +61,20 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+         public async Task<bool> CheckUserID(Guid userID)
+        {
+            var userId = new Npgsql.NpgsqlParameter("@theuserid",userID);
+            
+              CheckStatusModel checkStatusModel = await Task.Run(()=>_projectContextDB.CheckStatusModel.FromSqlRaw("select * from checkuserid(@theuserid) as status",userId)
+            .Select(e => new CheckStatusModel()
+            {
+                Status = e.Status  
+            }).FirstOrDefault());
+
+           return checkStatusModel.Status; 
+
+        }
+
         
 
 

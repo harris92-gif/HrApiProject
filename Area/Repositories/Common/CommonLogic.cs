@@ -26,5 +26,10 @@ namespace HrApiProject.Area.Repositories.Common
         {
             return _commonDAL.CheckSalaryID(businessID , salaryID);
         }
+
+        public Task<bool> CheckUserID(Guid userID)
+        {
+            return _commonDAL.CheckUserID(userID);
+        }
     }
 }
