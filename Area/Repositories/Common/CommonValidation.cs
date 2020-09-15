@@ -33,6 +33,24 @@ namespace HrApiProject.Area.Repositories.Common
             return this;
 
         }
+        public object SalaryIdNotExists(Guid salaryId)
+        {
+            ResponseList = new List<object>(); 
+            Success = "Failed";
+            ResponseList.Add(_commonResponseMessages.SalaryIdNotExists(salaryId));
+            return this;
+
+        }
+
+        
+        public object NoRecordFound()
+        {
+            ResponseList = new List<object>(); 
+            Success = "Failed";
+            ResponseList.Add(_commonResponseMessages.NoRecordFound());
+            return this;
+
+        }
 
         
     }

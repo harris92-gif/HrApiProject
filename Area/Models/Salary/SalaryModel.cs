@@ -12,4 +12,13 @@ namespace HrApiProject.Area.Models.Salary
         public int Salary { get; set; }
 
     }
+
+    public class UpdateSalaryModel
+    {
+        [Key]
+        
+        public Guid SalaryID { get; set; } 
+        public int Salary { get; set; }
+
+    }
 }

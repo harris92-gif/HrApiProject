@@ -28,13 +28,20 @@ namespace HrApiProject.Area.Controllers
         [HttpPost("AddEmployeeSalary")]
         public async Task<Object> AddEmployeeSalary(Guid businessID ,[FromBody] SalaryModel salaryModel)
         {
-            var checkBusinessID = await _commonlogic.CheckBusinessID(businessID);
+            var checkBusinessID = await _commonlogic.CheckBusinessID(businessID);  //check that this business is available
             if(checkBusinessID)
             {
                
-                var checkEmployeeID= await _commonlogic.CheckEmployeeID(businessID,salaryModel.EmployeeID);
+                var checkEmployeeID= await _commonlogic.CheckEmployeeID(businessID,salaryModel.EmployeeID); //check that this employee id is available in above business
                 if(checkEmployeeID)
                 {
+                   var checkIfSalaryIsAlreadyAssigned = await _salaryLogic.CheckIfEmployeeHasAlreaySaleryAssigned(businessID,salaryModel.EmployeeID); //checking if salery is already assigned to this employee
+                    if(checkIfSalaryIsAlreadyAssigned)
+                    {
+                        return _salaryValidation.SalaryAlreadyAssigned(salaryModel.EmployeeID); 
+                    }
+
+                    //insertion starts here
                     var errors = _salaryValidation.ValidateSalaryData(salaryModel);
                     if(errors!=null)
                     {
@@ -47,14 +54,90 @@ namespace HrApiProject.Area.Controllers
                     }
 
                     return _salaryValidation.SalaryAddedFailed();
+
                 }
                 return _commonValidation.EmployeeIdNotExists(salaryModel.EmployeeID);
             }
 
-            return _commonValidation.BusinessIdNotExists(businessID);
+            return _commonValidation.BusinessIdNotExists(businessID);           
+           
+        }
 
+        [HttpPut("UpdateEmployeeSalaryBySalaryID")]
+        public async Task<Object> UpdateEmployeeSalaryBySalaryID(Guid businessID ,Guid salaryID,[FromForm] UpdateSalaryModel updateSalaryModel)
+        {
+            var checkBusinessID = await _commonlogic.CheckBusinessID(businessID);  //check that this business is available
+            if(checkBusinessID)
+            {
+               
+                var checkSalaryID= await _commonlogic.CheckSalaryID(businessID,salaryID); //check that this salary id is available in above business
+                if(checkSalaryID)
+                {
+                    //updation starts here
+                    var errors = _salaryValidation.ValidateUpdateSalaryData(updateSalaryModel);
+                    if(errors!=null)
+                    {
+                        return errors;    
+                    }
 
-            
+                    bool response = await _salaryLogic.UpdateEmployeeSalaryBySalaryID(businessID ,salaryID, updateSalaryModel);
+                    if(response)
+                    {
+                        return _salaryValidation.SalaryUpdatedSuccess();
+                    }
+
+                    return _salaryValidation.SalaryUpdatedFailed();
+
+                }
+
+                return _commonValidation.SalaryIdNotExists(salaryID);
+            }
+
+            return _commonValidation.BusinessIdNotExists(businessID);           
+           
+        }
+
+        [HttpGet("ShowEmployeeSalariesByEmployeeIds")]
+        public async Task<Object> ShowEmployeeSalariesByEmployeeIds(Guid businessID ,[FromForm] Guid[] employeeIDs)
+        {
+            var checkBusinessID = await _commonlogic.CheckBusinessID(businessID);  //check that this business is available
+            if(checkBusinessID)
+            {                    
+
+                    var response = await _salaryLogic.ShowEmployeeSalariesByEmployeeIds(businessID ,employeeIDs);
+                    if(response!=null)
+                    {
+                        return response;
+                    }
+
+                    return _commonValidation.NoRecordFound();
+
+               
+            }
+
+            return _commonValidation.BusinessIdNotExists(businessID);           
+           
+        }
+
+        [HttpGet("ShowAllEmployeeNameAndSalaries")]
+        public async Task<Object> ShowAllEmployeeNameAndSalaries(Guid businessID)
+        {
+            var checkBusinessID = await _commonlogic.CheckBusinessID(businessID);  //check that this business is available
+            if(checkBusinessID)
+            {                    
+
+                    var response = await _salaryLogic.ShowAllEmployeeNameAndSalaries(businessID);
+                    if(response!=null)
+                    {
+                        return response;
+                    }
+
+                    return _commonValidation.NoRecordFound();
+
+               
+            }
+
+            return _commonValidation.BusinessIdNotExists(businessID);           
            
         }
 

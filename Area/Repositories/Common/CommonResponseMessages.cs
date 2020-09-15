@@ -27,6 +27,25 @@ namespace HrApiProject.Area.Repositories.Common
             return rcam;
 
         }
+
+         public object SalaryIdNotExists(Guid salaryId)
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 2003;
+            rcam.ResponseMessage = "Salary ID (" +salaryId + " does not exists)";
+            return rcam;
+
+        }
+
+        
+         public object NoRecordFound()
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 2004;
+            rcam.ResponseMessage = "No Record Found";
+            return rcam;
+
+        }
        
         
     }

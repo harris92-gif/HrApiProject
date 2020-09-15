@@ -7,6 +7,8 @@ namespace HrApiProject.Area.Repositories.Common
     {
         Task<bool> CheckBusinessID(Guid businessID);
         Task<bool> CheckEmployeeID(Guid businessID,Guid employeeID);
+        Task<bool> CheckSalaryID(Guid businessID,Guid salaryID);
+
 
 
     }

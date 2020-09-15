@@ -19,21 +19,27 @@ namespace HrApiProject.Area.Models
             
           }
 
-          public DbSet<BusinessModel> BusinessModels {get; set;}
+        public DbSet<BusinessModel> BusinessModels {get; set;}
 
-          public DbSet<DepartmentModel> DepartmentModels {get; set;}
+        public DbSet<DepartmentModel> DepartmentModels {get; set;}
 
-          public DbSet<DepartmentResponse> departmentResponse {get; set;}
-          public DbSet<EmployeeModel> EmployeeModel {get; set;}
+        public DbSet<DepartmentResponse> departmentResponse {get; set;}
+        public DbSet<EmployeeModel> EmployeeModel {get; set;}
 
-          public DbSet<UpdateEmployeeModel> UpdateEmployeeModel {get; set;}
-          public DbSet<CheckStatusModel> CheckStatusModel {get; set;}
+        public DbSet<UpdateEmployeeModel> UpdateEmployeeModel {get; set;}
+        public DbSet<CheckStatusModel> CheckStatusModel {get; set;}
 
         public DbSet<EmployeeResponse> EmployeeResponse {get; set;}
         public DbSet<UserModel> UserModel {get; set;}
         public DbSet<UserResponse> userResponse {get; set;}
 
         public DbSet<SalaryModel> SalaryModel {get; set;}
+
+        public DbSet<SalaryResponse> salaryResponse {get; set;}
+
+        public DbSet<SalaryWithEmployeeNameResponse> SalaryWithEmployeeNameResponse {get; set;}
+
+
 
 
 
@@ -47,6 +53,7 @@ namespace HrApiProject.Area.Models
               {
                   modelBuilder.HasDefaultSchema(_schemaName);
               }
+              
               modelBuilder.HasPostgresExtension("uuid-ossp");
 
 
@@ -55,7 +62,12 @@ namespace HrApiProject.Area.Models
                   entity.HasNoKey();
               });       
 
-                 modelBuilder.Entity<CheckStatusModel>(entity=>
+              modelBuilder.Entity<CheckStatusModel>(entity=>
+              {
+                  entity.HasNoKey();
+              });
+
+               modelBuilder.Entity<SalaryWithEmployeeNameResponse>(entity=>
               {
                   entity.HasNoKey();
               });        

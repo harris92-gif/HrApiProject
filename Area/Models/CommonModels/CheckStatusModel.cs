@@ -13,6 +13,12 @@ namespace HrApiProject.Area.Models.CommonModels
          [Column("checkemployeeid")]
         public bool EmployeeIDStatus {get; set;}
 
+        [Column("salaryupdatastatus")]
+        public bool salaryUpdateStatus {get; set;}
+
+        [Column("checksalaryid")]
+        public bool SalaryIDStatus {get; set;}
+
         
     }
 }

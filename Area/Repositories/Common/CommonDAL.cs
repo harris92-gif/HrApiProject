@@ -45,6 +45,22 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+         public async Task<bool> CheckSalaryID(Guid businessID,Guid salaryID)
+        {
+            var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+            var salaryId = new Npgsql.NpgsqlParameter("@thesalaryid",salaryID);
+
+            
+              CheckStatusModel checkStatusModel = await Task.Run(()=>_projectContextDB.CheckStatusModel.FromSqlRaw("select * from checksalaryid(@thebusinessid,@thesalaryid) as checksalaryid",businessId,salaryId)
+            .Select(e => new CheckStatusModel()
+            {
+                SalaryIDStatus = e.SalaryIDStatus
+            }).FirstOrDefault());
+
+           return checkStatusModel.SalaryIDStatus; 
+
+        }
+
         
 
 
