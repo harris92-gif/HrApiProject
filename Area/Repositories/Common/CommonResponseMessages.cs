@@ -46,6 +46,15 @@ namespace HrApiProject.Area.Repositories.Common
             return rcam;
 
         }
+
+        public object UserIdNotExists(Guid userId)
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 2001;
+            rcam.ResponseMessage = "user ID (" +userId + " does not exists)";
+            return rcam;
+
+        }
        
         
     }

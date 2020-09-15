@@ -19,6 +19,7 @@ using HrApiProject.Area.Repositories.Employee;
 using HrApiProject.Area.Repositories.User;
 using HrApiProject.Area.Repositories.Salary;
 using HrApiProject.Area.Repositories.Common;
+using HrApiProject.Area.Repositories.BusinessUsers;
 
 namespace HrApiProject
 {
@@ -68,10 +69,16 @@ namespace HrApiProject
            services.AddScoped<SalaryResponseMessages>();
            services.AddScoped<SalaryValidation>();
 
-              services.AddScoped<ICommonLogic, CommonLogic>();
+            services.AddScoped<ICommonLogic, CommonLogic>();
            services.AddScoped<CommonDAL>();
            services.AddScoped<CommonResponseMessages>();
            services.AddScoped<CommonValidation>();
+
+           services.AddScoped<IBusinessUsersLogic, BusinessUsersLogic>();
+           services.AddScoped<BusinessUsersDAL>();
+           services.AddScoped<BusinessUsersResponseMessages>();
+           services.AddScoped<BusinessUsersValidation>();
+
 
 
            

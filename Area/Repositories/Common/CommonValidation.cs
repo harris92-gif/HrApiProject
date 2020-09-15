@@ -52,6 +52,15 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+         public object UserIdNotExists(Guid userId)
+        {
+            ResponseList = new List<object>();
+            Success = "Failed";
+            ResponseList.Add(_commonResponseMessages.UserIdNotExists(userId));
+            return this;
+
+        }
+
         
     }
 }
