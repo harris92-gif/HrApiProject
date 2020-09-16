@@ -20,6 +20,7 @@ using HrApiProject.Area.Repositories.User;
 using HrApiProject.Area.Repositories.Salary;
 using HrApiProject.Area.Repositories.Common;
 using HrApiProject.Area.Repositories.BusinessUsers;
+using HrApiProject.Area.Repositories.Deductions;
 
 namespace HrApiProject
 {
@@ -78,6 +79,11 @@ namespace HrApiProject
            services.AddScoped<BusinessUsersDAL>();
            services.AddScoped<BusinessUsersResponseMessages>();
            services.AddScoped<BusinessUsersValidation>();
+
+           services.AddScoped<IDeductionLogic, DeductionLogic>();
+           services.AddScoped<DeductionDAL>();
+           services.AddScoped<DeductionResponseMessages>();
+           services.AddScoped<DeductionValidation>();
 
 
 

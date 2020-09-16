@@ -69,8 +69,7 @@ namespace HrApiProject.Area.Repositories.BusinessUsers
         }
 
         public async Task<object> ShowAllBusinessUsers(Guid businessID) 
-        {
-            
+        {            
             var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
 
             List<AllBusinessUsersResponse> allBusinessUsersResponse = await Task.Run(()=>_projectContextDB.AllBusinessUsersResponse.FromSqlRaw("select * from showallbusinessuser(@thebusinessid) ",businessId)
@@ -78,7 +77,7 @@ namespace HrApiProject.Area.Repositories.BusinessUsers
             {
                AllBusinessUsersInOneJson = e.AllBusinessUsersInOneJson
 
-            }).ToList());
+            }).ToList());  
 
              List<BusinessUsersResponse> businessUsersResponses = JsonConvert.DeserializeObject<List<BusinessUsersResponse>>(allBusinessUsersResponse.FirstOrDefault().AllBusinessUsersInOneJson);
             
@@ -87,10 +86,7 @@ namespace HrApiProject.Area.Repositories.BusinessUsers
                 var Response = new {Success = "OK" ,businessUsersResponses=businessUsersResponses };
                 return Response;
             }
-            return null;
-
-            
-          
+            return null;             
         }
 
         public async Task<object> ShowBusinessUserByBuId(Guid businessID,Guid businesUserID) 
