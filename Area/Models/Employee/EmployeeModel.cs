@@ -10,10 +10,10 @@ namespace HrApiProject.Area.Models.Employee
         [Key]        
         [Column("emp_id")]
         public Guid EmployeeID {get; set;}
-        public string  EmployeeName {get; set;}
-        public string  EmployeeGender {get; set;}
-        public string  EmployeeSSN {get; set;}
-        public Guid  DepartmentID {get; set;}
+        public string  EmployeeName {get; set;} 
+        public string  EmployeeGender {get; set;} 
+        public string  EmployeeSSN {get; set;} 
+        public Guid  DepartmentID {get; set;} 
 
         [NotMapped]
         public List<EmployeeDetails> EmployeeDetails {get; set;}

@@ -42,8 +42,6 @@ namespace HrApiProject.Area.Models
 
         public DbSet<BusinessUsersResponse> BusinessUsersResponse {get; set;}
         public DbSet<AllBusinessUsersResponse> AllBusinessUsersResponse {get; set;}
-
-
         
 
 

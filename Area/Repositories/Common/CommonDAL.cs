@@ -39,7 +39,7 @@ namespace HrApiProject.Area.Repositories.Common
             .Select(e => new CheckStatusModel()
             {
                 EmployeeIDStatus = e.EmployeeIDStatus
-            }).FirstOrDefault());
+            }).FirstOrDefault()); 
 
            return checkStatusModel.EmployeeIDStatus; 
 
@@ -81,7 +81,7 @@ namespace HrApiProject.Area.Repositories.Common
             var businessUserId = new Npgsql.NpgsqlParameter("@thebusinessuserid",businessUserID);
 
             
-              CheckStatusModel checkStatusModel = await Task.Run(()=>_projectContextDB.CheckStatusModel.FromSqlRaw("select * from checkbusinessuserid(@thebusinessid,@thebusinessuserid) as status",businessId,businessUserId)
+            CheckStatusModel checkStatusModel = await Task.Run(()=>_projectContextDB.CheckStatusModel.FromSqlRaw("select * from checkbusinessuserid(@thebusinessid,@thebusinessuserid) as status",businessId,businessUserId)
             .Select(e => new CheckStatusModel()
             {
                 Status = e.Status
