@@ -17,6 +17,8 @@ namespace HrApiProject.Area.Repositories.Common
             return _commonDAL.CheckBusinessID(businessID);
         }
 
+        
+
         public Task<bool> CheckEmployeeID(Guid businessID, Guid employeeID)
         {
             return _commonDAL.CheckEmployeeID(businessID,employeeID);
@@ -30,6 +32,11 @@ namespace HrApiProject.Area.Repositories.Common
         public Task<bool> CheckUserID(Guid userID)
         {
             return _commonDAL.CheckUserID(userID);
+        }
+
+        public Task<bool> CheckBusinessUserID(Guid businessID, Guid businessUserID)
+        {
+            return _commonDAL.CheckBusinessUserID(businessID,businessUserID);
         }
     }
 }

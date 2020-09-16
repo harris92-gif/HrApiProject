@@ -45,3 +45,4 @@
 /home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/System.Collections.Immutable.dll
 /home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/System.ComponentModel.Annotations.dll
 /home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/System.Diagnostics.DiagnosticSource.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
