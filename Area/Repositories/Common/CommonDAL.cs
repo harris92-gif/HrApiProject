@@ -75,6 +75,22 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+         public async Task<bool> CheckBusinessUserID(Guid businessID,Guid businessUserID)
+        {
+            var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+            var businessUserId = new Npgsql.NpgsqlParameter("@thebusinessuserid",businessUserID);
+
+            
+              CheckStatusModel checkStatusModel = await Task.Run(()=>_projectContextDB.CheckStatusModel.FromSqlRaw("select * from checkbusinessuserid(@thebusinessid,@thebusinessuserid) as status",businessId,businessUserId)
+            .Select(e => new CheckStatusModel()
+            {
+                Status = e.Status
+            }).FirstOrDefault());
+
+           return checkStatusModel.Status; 
+
+        }
+
         
 
 

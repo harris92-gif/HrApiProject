@@ -46,6 +46,95 @@ namespace HrApiProject.Area.Controllers
             return   _commonValidation.BusinessIdNotExists(businessID);    
         }
 
+        [HttpPost("DeactivateBusinessUserById")]
+        public async Task<object> DeactivateBusinessUserById(Guid businessID ,Guid businessUserID) 
+        {
+            var checkBusinessId =   await _commonLogic.CheckBusinessID(businessID); 
+            if(checkBusinessId)
+            {
+                bool checkBusinessUserId = await _commonLogic.CheckBusinessUserID(businessID,businessUserID);
+                if(checkBusinessUserId)
+                {
+                    var response = await _businessUsersLogic.DeactivateBusinessUserById(businessID,businessUserID);
+                    if(response) 
+                    {
+                        return _businessUsersValidation.BusinessUserDeactivatedSuccess();
+                    }
+                     return _businessUsersValidation.BusinessUserDeactivatedFailed();
+                    
+                }
+                return   _commonValidation.BusinessUserIdNotExists(businessUserID);  
+
+            }   
+            return   _commonValidation.BusinessIdNotExists(businessID);    
+        }
+
+        [HttpPost("ActivateBusinessUserById")]
+        public async Task<object> ActivateBusinessUserById(Guid businessID ,Guid businessUserID) 
+        {
+            var checkBusinessId =   await _commonLogic.CheckBusinessID(businessID); 
+            if(checkBusinessId)
+            {
+                bool checkBusinessUserId = await _commonLogic.CheckBusinessUserID(businessID,businessUserID);
+                if(checkBusinessUserId)
+                {
+                    var response = await _businessUsersLogic.ActivateBusinessUserById(businessID,businessUserID);
+                    if(response) 
+                    {
+                        return _businessUsersValidation.BusinessUserActivatedSuccess();
+                    }
+                     return _businessUsersValidation.BusinessUserActivatedFailed();
+                    
+                }
+                return   _commonValidation.BusinessUserIdNotExists(businessUserID);  
+
+            }   
+            return   _commonValidation.BusinessIdNotExists(businessID);    
+        }
+
+
+
+        [HttpGet("ShowAllBusinessUsers")]
+         public async Task<object> ShowAllBusinessUsers(Guid businessID)
+         {
+             var checkBusinessId =   await _commonLogic.CheckBusinessID(businessID); 
+            if(checkBusinessId)
+            {
+                    var response = await _businessUsersLogic.ShowAllBusinessUsers(businessID);
+                    if(response!=null)
+                    {
+                        return response;
+                    }
+                    return _commonValidation.NoRecordFound();
+                    
+            }   
+            return   _commonValidation.BusinessIdNotExists(businessID);   
+         }
+
+         [HttpGet("ShowAllBusinessUsersByBusinessUserId")]
+         public async Task<object> ShowAllBusinessUsersByBuId(Guid businessID,Guid businessUserID)
+         {
+            var checkBusinessId =   await _commonLogic.CheckBusinessID(businessID); 
+            if(checkBusinessId)
+            {
+                bool checkBusinessUserId = await _commonLogic.CheckBusinessUserID(businessID,businessUserID);
+                if(checkBusinessUserId)
+                {
+                    var response = await _businessUsersLogic.ShowBusinessUserByBuId(businessID,businessUserID);
+                    if(response!=null)
+                    {
+                        return response;
+                    }
+                    return _commonValidation.NoRecordFound();
+                    
+                }
+                return   _commonValidation.BusinessUserIdNotExists(businessUserID);  
+
+            }   
+            return   _commonValidation.BusinessIdNotExists(businessID);   
+
+         }
+
 
         
     }

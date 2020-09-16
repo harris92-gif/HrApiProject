@@ -52,11 +52,20 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
-         public object UserIdNotExists(Guid userId)
+        public object UserIdNotExists(Guid userId)
         {
             ResponseList = new List<object>();
             Success = "Failed";
             ResponseList.Add(_commonResponseMessages.UserIdNotExists(userId));
+            return this;
+
+        }
+
+         public object BusinessUserIdNotExists(Guid businessUserId)
+        {
+            ResponseList = new List<object>();
+            Success = "Failed";
+            ResponseList.Add(_commonResponseMessages.BusinessUserIdNotExists(businessUserId));
             return this;
 
         }
