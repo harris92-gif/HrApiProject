@@ -14,9 +14,19 @@ namespace HrApiProject.Area.Repositories.Deductions
             
         }
 
-        public Task<bool> AddDeduction(Guid businessID, DeductionModel deductionModel)
+        public Task<Guid[]> AddDeduction(Guid businessID, DeductionModel deductionModel)
         {
             return _deductionDAL.AddDeduction(businessID,deductionModel);
+        }
+
+        public Task<object> ShowAllDeduction(Guid businessID)
+        {
+            return _deductionDAL.ShowAllDeduction(businessID);
+        }
+
+        public Task<object> ShowDeductionById(Guid businessID, Guid deductionID)
+        {
+            return _deductionDAL.ShowDeductionById(businessID,deductionID);
         }
     }
 }

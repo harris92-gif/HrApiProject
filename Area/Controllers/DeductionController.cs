@@ -31,17 +31,58 @@ namespace HrApiProject.Area.Controllers
             var checkBusinessId = await _commonLogic.CheckBusinessID(businessID);
             if(checkBusinessId)
             {
+                var errors = _deductionValidation.ValidateDeductionData(deductionModel);
+                if(errors!=null)
+                {
+                    return errors;
+                }
                                 
                 var response = await _deductionLogic.AddDeduction(businessID,deductionModel);
-                if(response)
+             
+                if(response ==null)
                 {
-                    return _deductionValidation.DeductionAddedSuccess();
+                    return _deductionValidation.DeductionAddedSuccess();          
                 }
-                return _deductionValidation.DeductionAdditionFailed();
+               
+
+                return _commonValidation.TheseEmployeesIdsNotFound(response);
 
             }
             return _commonValidation.BusinessIdNotExists(businessID);
         }
+
+        [HttpGet("ShowAllDeduction")]
+        public  async Task<object> ShowAllDeduction(Guid businessID)
+        {
+            var checkBusinessId = await _commonLogic.CheckBusinessID(businessID);
+            if(checkBusinessId)
+            {                              
+                var response = await _deductionLogic.ShowAllDeduction(businessID);
+                if(response!=null)
+                {
+                    return response;
+                }
+                return _commonValidation.NoRecordFound();
+            }
+            return _commonValidation.BusinessIdNotExists(businessID);
+        }
+
+        [HttpGet("ShowDeductionById")]
+        public  async Task<object> ShowDeductionById(Guid businessID,Guid deductionID)
+        {
+            var checkBusinessId = await _commonLogic.CheckBusinessID(businessID);
+            if(checkBusinessId)
+            {                              
+                var response = await _deductionLogic.ShowDeductionById(businessID,deductionID);
+                if(response!=null)
+                {
+                    return response;
+                }
+                return _commonValidation.NoRecordFound();
+            }
+            return _commonValidation.BusinessIdNotExists(businessID);
+        }
+
 
 
 

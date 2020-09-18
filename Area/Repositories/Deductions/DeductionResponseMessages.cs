@@ -28,5 +28,34 @@ namespace HrApiProject.Area.Repositories.Deductions
         }
 
         
+
+        public object InvalidAmount()
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 1002;
+            rcam.ResponseMessage = "Amount Must Be Greater then 0";
+            return rcam;
+
+        }
+        public object DescNotProvided()
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 1003;
+            rcam.ResponseMessage = "Description Not Provided";
+            return rcam;
+
+        }
+        public object DescExceedsLimit()
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 1004;
+            rcam.ResponseMessage = "Descrition length must be less then 100 characters";
+            return rcam;
+
+        }
+
+        
+
+        
     }
 }

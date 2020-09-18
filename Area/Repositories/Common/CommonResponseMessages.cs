@@ -65,6 +65,20 @@ namespace HrApiProject.Area.Repositories.Common
             return rcam;
 
         }
+
+        
+        public object TheseEmployeesIdsNotFound(Guid[] employeeIds)
+        {
+            string[] stringArray = Array.ConvertAll(employeeIds, x => x.ToString()); //converting Guid array to string array
+            //now converting string array to strings
+            string arrayInOneString = string.Join(" , ",stringArray);
+
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 2007;
+            rcam.ResponseMessage = "Employee Ids (" +arrayInOneString + " ) does not exists)";
+            return rcam;
+
+        }
        
         
     }
