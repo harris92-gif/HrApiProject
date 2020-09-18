@@ -1,6 +1,7 @@
 using HrApiProject.Area.Models;
 using HrApiProject.Area.Models.BusinessUsers;
 using HrApiProject.Area.Models.CommonModels;
+using HrApiProject.Area.Models.Deductions;
 using HrApiProject.Area.Models.Department;
 using HrApiProject.Area.Models.Employee;
 using HrApiProject.Area.Models.Salary;
@@ -41,9 +42,10 @@ namespace HrApiProject.Area.Models
         public DbSet<SalaryWithEmployeeNameResponse> SalaryWithEmployeeNameResponse {get; set;}
 
         public DbSet<BusinessUsersResponse> BusinessUsersResponse {get; set;}
-        public DbSet<AllBusinessUsersResponse> AllBusinessUsersResponse {get; set;}
+        public DbSet<AllBusinessUsersResponse> AllBusinessUsersResponse {get; set;} 
+        public DbSet<DeductionResponseInJson> DeductionResponseInJson {get; set;}
         
-
+         public DbSet<DeductionAddingButEmployeeIDsNotPresent> DeductionAddingButEmployeeIDsNotPresent {get; set;}
 
 
 
@@ -77,7 +79,17 @@ namespace HrApiProject.Area.Models
                modelBuilder.Entity<AllBusinessUsersResponse>(entity=>
               {
                   entity.HasNoKey();
-              });       
+              });  
+
+               modelBuilder.Entity<DeductionResponseInJson>(entity=>
+              {
+                  entity.HasNoKey();
+              });  
+
+               modelBuilder.Entity<DeductionAddingButEmployeeIDsNotPresent>(entity=>
+              {
+                  entity.HasNoKey();
+              });  
 
             
           }

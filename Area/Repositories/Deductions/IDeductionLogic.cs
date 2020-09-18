@@ -6,7 +6,12 @@ namespace HrApiProject.Area.Repositories.Deductions
 {
     public interface IDeductionLogic
     {
-        Task<bool> AddDeduction(Guid businessID , DeductionModel deductionModel);
+        Task<Guid[]> AddDeduction(Guid businessID , DeductionModel deductionModel);
+       Task<object> ShowAllDeduction(Guid businessID );
+
+        Task<object> ShowDeductionById(Guid businessID ,Guid deductionID);
+
+
 
     }
 }

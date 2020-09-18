@@ -71,5 +71,16 @@ namespace HrApiProject.Area.Repositories.Common
         }
 
         
+
+        public object TheseEmployeesIdsNotFound(Guid[] employeeIds)
+        {
+            ResponseList = new List<object>();
+            Success = "Failed";
+            ResponseList.Add(_commonResponseMessages.TheseEmployeesIdsNotFound(employeeIds));
+            return this;
+
+        }
+
+        
     }
 }
