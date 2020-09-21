@@ -14,6 +14,9 @@ namespace HrApiProject.Area.Repositories.Common
         Task<bool> CheckBusinessUserID(Guid businessID,Guid businessUserID);
         Task<bool> CheckDeductionID(Guid businessID,Guid deductionID);
 
+        Task<bool> CheckIncrementID(Guid businessID,Guid incrementID);
+
+
 
 
 

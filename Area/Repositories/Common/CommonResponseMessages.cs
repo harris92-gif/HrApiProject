@@ -80,6 +80,7 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+
         
         public object DeductionIdNotExists(Guid deductionId)
         {
@@ -89,6 +90,16 @@ namespace HrApiProject.Area.Repositories.Common
             return rcam;
 
         }
+        public object IncrementIdNotExists(Guid incrementId)
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 2008;
+            rcam.ResponseMessage = "Increment ID " +incrementId + " does not exists)";
+            return rcam;
+
+        }
+
+        
        
         
     }

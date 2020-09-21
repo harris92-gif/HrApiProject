@@ -90,6 +90,15 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+        public object IncrementIdNotExists(Guid incrementId)
+        {
+            ResponseList = new List<object>();
+            Success = "Failed";
+            ResponseList.Add(_commonResponseMessages.IncrementIdNotExists(incrementId));
+            return this;
+
+        }
+
         
     }
 }

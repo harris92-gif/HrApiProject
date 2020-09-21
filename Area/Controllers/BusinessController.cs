@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 //using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Http;
-using HrApiProject.Area.Repositories.Business;
 
 namespace HrApiProject.Area.Controllers
 {
