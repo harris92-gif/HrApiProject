@@ -19,6 +19,9 @@ namespace HrApiProject.Area.Models.CommonModels
         [Column("checksalaryid")]
         public bool SalaryIDStatus {get; set;}
 
+        [Column("checkdeductionid")]
+        public bool DeductionIDStatus {get; set;}
+
         
     }
 }

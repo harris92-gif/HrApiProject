@@ -79,6 +79,16 @@ namespace HrApiProject.Area.Repositories.Common
             return rcam;
 
         }
+
+        
+        public object DeductionIdNotExists(Guid deductionId)
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 2008;
+            rcam.ResponseMessage = "Deduction ID (" +deductionId + " does not exists)";
+            return rcam;
+
+        }
        
         
     }

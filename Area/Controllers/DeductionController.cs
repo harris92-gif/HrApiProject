@@ -83,6 +83,49 @@ namespace HrApiProject.Area.Controllers
             return _commonValidation.BusinessIdNotExists(businessID);
         }
 
+        [HttpPut("UpdateDeductionByID")]
+        public async Task<object> UpdateDeductionByID(Guid businessID, Guid deductionID,[FromBody] UpdateDeductionModel updateDeductionModel)
+        {
+            var checkBusinessId = await _commonLogic.CheckBusinessID(businessID);
+            if(checkBusinessId)
+            {
+                 var checkDeductionId = await _commonLogic.CheckDeductionID(businessID,deductionID);
+                 if(checkDeductionId)
+                 {
+                    var errors = _deductionValidation.ValidateUpdateDeductionData(updateDeductionModel);
+                    if(errors!=null)
+                    {
+                        return errors;
+                    }
+                    _deductionLogic.UpdateDeductionByID(businessID,deductionID,updateDeductionModel);
+
+                    return _deductionValidation.DeductionUpdatedSuccess();
+                 }
+                 return _commonValidation.DeductionIdNotExists(deductionID);
+
+            }
+            return _commonValidation.BusinessIdNotExists(businessID);
+        }
+
+
+        [HttpGet("ShowDeductionsByEmployeeId")]
+        public async Task<object> ShowDeductionsByEmployeeId(Guid businessID, Guid employeeID)
+        {
+             var checkBusinessId = await _commonLogic.CheckBusinessID(businessID);
+            if(checkBusinessId)
+            {
+                var response = await _deductionLogic.ShowDeductionsByEmployeeId(businessID , employeeID);
+                if(response!=null)
+                {
+                    return response;
+                }
+                return _commonValidation.NoRecordFound();
+            }
+            return _commonValidation.BusinessIdNotExists(businessID);
+        }
+
+
+
 
 
 

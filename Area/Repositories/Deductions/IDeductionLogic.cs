@@ -11,6 +11,12 @@ namespace HrApiProject.Area.Repositories.Deductions
 
         Task<object> ShowDeductionById(Guid businessID ,Guid deductionID);
 
+        Task UpdateDeductionByID(Guid businessID ,Guid deductionID , UpdateDeductionModel updateDeductionModel);
+
+        Task<object> ShowDeductionsByEmployeeId(Guid businessID , Guid employeeID);
+
+
+
 
 
     }

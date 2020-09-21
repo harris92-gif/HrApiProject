@@ -18,6 +18,17 @@ namespace HrApiProject.Area.Repositories.Deductions
 
         }
 
+        
+
+        public object DeductionUpdatedSuccess()
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 1002;
+            rcam.ResponseMessage = "Deduction Updated Successfully ";
+            return rcam;
+
+        }
+
         public object DeductionAdditionFailed()
         {
             ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
