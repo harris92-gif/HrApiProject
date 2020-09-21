@@ -81,6 +81,15 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+        public object DeductionIdNotExists(Guid deductionId)
+        {
+            ResponseList = new List<object>();
+            Success = "Failed";
+            ResponseList.Add(_commonResponseMessages.DeductionIdNotExists(deductionId));
+            return this;
+
+        }
+
         
     }
 }

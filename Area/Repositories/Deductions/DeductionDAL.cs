@@ -111,9 +111,49 @@ namespace HrApiProject.Area.Repositories.Deductions
             catch(Exception)
             {
                 return null;
-            }
-            
+            }            
         }
+
+        public async Task UpdateDeductionByID(Guid businessID ,Guid deductionID , UpdateDeductionModel updateDeductionModel)
+        {
+                var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+                var deductionId = new Npgsql.NpgsqlParameter("@thedeductid",deductionID);
+                var amount = new Npgsql.NpgsqlParameter("@theamount",updateDeductionModel.Amount);
+                var description  = new Npgsql.NpgsqlParameter("@thedescription",updateDeductionModel.Description);
+
+
+                await Task.Run(()=>_projectContextDb.Database.ExecuteSqlRaw("call updatededuction(@thebusinessid,@thedeductid,@theamount,@thedescription)",businessId,deductionId,amount,description));
+            
+        }      
+
+        public async Task<object> ShowDeductionsByEmployeeId(Guid businessID , Guid employeeID)
+        {
+            var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+            var empoyeeId = new Npgsql.NpgsqlParameter("@theemployeeid",employeeID);
+
+            List<DeductionResponseInJson> deductionResponseInJsons = await Task.Run(()=>_projectContextDb.DeductionResponseInJson.
+            FromSqlRaw("select * from showdeductionsbyemployeeid(@thebusinessid,@theemployeeid)",businessId,empoyeeId).
+            Select(e=> new DeductionResponseInJson()
+            {
+                DeductionsDetails = e.DeductionsDetails
+            }).ToList());
+
+            foreach(DeductionResponseInJson dd in deductionResponseInJsons)
+            {
+                if(dd.DeductionsDetails!=null)
+                {
+                    List<DeductionResponse> deductionResponse = JsonConvert.DeserializeObject<List<DeductionResponse>>(deductionResponseInJsons.FirstOrDefault().DeductionsDetails);
+
+                    var response = new {Success =  "OK" , deductionResponse};
+                    return response;
+                }
+            }
+
+            return null;
+
+
+        }  
+        
 
     }
 }

@@ -28,5 +28,17 @@ namespace HrApiProject.Area.Repositories.Deductions
         {
             return _deductionDAL.ShowDeductionById(businessID,deductionID);
         }
+
+       
+
+        public Task UpdateDeductionByID(Guid businessID, Guid deductionID, UpdateDeductionModel updateDeductionModel)
+        {   
+            return _deductionDAL.UpdateDeductionByID(businessID , deductionID , updateDeductionModel);
+        }     
+
+         public  Task<object> ShowDeductionsByEmployeeId(Guid businessID, Guid employeeID)
+        {
+            return _deductionDAL.ShowDeductionsByEmployeeId(businessID , employeeID);
+        } 
     }
 }

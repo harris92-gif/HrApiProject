@@ -28,7 +28,7 @@ namespace HrApiProject.Area.Repositories.Deductions
                     ResponseList.Add(_deductionResponseMessages.InvalidAmount());
                    
                 }
-                 if(string.IsNullOrEmpty(deductionDetails.Description))
+                 if(string.IsNullOrEmpty(deductionDetails.Description.Trim()))
                 {
                     Success = "Failed";
                     ResponseList.Add(_deductionResponseMessages.DescNotProvided());
@@ -51,6 +51,40 @@ namespace HrApiProject.Area.Repositories.Deductions
             return null;
         }
 
+        public object ValidateUpdateDeductionData(UpdateDeductionModel updateDeductionModel)
+        {
+            
+            ResponseList = new List<object>();
+            
+                if(updateDeductionModel.Amount<=0)
+                {
+                    Success = "Failed";
+                    ResponseList.Add(_deductionResponseMessages.InvalidAmount());
+                   
+                }
+                 if(string.IsNullOrEmpty(updateDeductionModel.Description.Trim()))
+                {
+                    Success = "Failed";
+                    ResponseList.Add(_deductionResponseMessages.DescNotProvided());
+                   
+                }
+                else
+                {
+                       if(updateDeductionModel.Description.Length>100)
+                       {
+                           Success = "Failed";
+                            ResponseList.Add(_deductionResponseMessages.DescExceedsLimit());
+                       } 
+                }
+                
+            
+            if(Success!=null)
+            {
+                return this;
+            }
+            return null;
+        }
+
 
         public object DeductionAddedSuccess()
         {
@@ -65,6 +99,14 @@ namespace HrApiProject.Area.Repositories.Deductions
             ResponseList = new List<object>();
             Success = "Failed";
             ResponseList.Add(_deductionResponseMessages.DeductionAdditionFailed());
+            return this;
+        }
+
+        public object DeductionUpdatedSuccess()
+        {
+            ResponseList = new List<object>();
+            Success = "OK";
+            ResponseList.Add(_deductionResponseMessages.DeductionUpdatedSuccess());
             return this;
         }
 

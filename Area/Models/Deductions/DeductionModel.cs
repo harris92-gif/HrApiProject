@@ -19,6 +19,14 @@ namespace HrApiProject.Area.Models.Deductions
         
     }
 
+    public class UpdateDeductionModel
+    {
+           
+        public int Amount { get; set; }                 
+        public string  Description  { get; set; }        
+        
+    }
+
 
 
 
