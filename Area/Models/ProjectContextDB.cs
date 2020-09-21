@@ -4,6 +4,7 @@ using HrApiProject.Area.Models.CommonModels;
 using HrApiProject.Area.Models.Deductions;
 using HrApiProject.Area.Models.Department;
 using HrApiProject.Area.Models.Employee;
+using HrApiProject.Area.Models.Increments;
 using HrApiProject.Area.Models.Salary;
 using HrApiProject.Area.Models.User;
 using Microsoft.EntityFrameworkCore;
@@ -43,9 +44,12 @@ namespace HrApiProject.Area.Models
 
         public DbSet<BusinessUsersResponse> BusinessUsersResponse {get; set;}
         public DbSet<AllBusinessUsersResponse> AllBusinessUsersResponse {get; set;} 
-        public DbSet<DeductionResponseInJson> DeductionResponseInJson {get; set;}
-        
-         public DbSet<DeductionAddingButEmployeeIDsNotPresent> DeductionAddingButEmployeeIDsNotPresent {get; set;}
+        public DbSet<DeductionResponseInJson> DeductionResponseInJson {get; set;}        
+         public DbSet<DeductionAddingButEmployeeIDsNotPresent> DeductionAddingButEmployeeIDsNotPresent {get; set;}         
+        public DbSet<IncrementsAddingButEmployeeIDsNotPresent> IncrementsAddingButEmployeeIDsNotPresent {get; set;}
+        public DbSet<IncrementResponseInJson> IncrementResponseInJson {get; set;}
+
+
 
 
 
@@ -86,10 +90,20 @@ namespace HrApiProject.Area.Models
                   entity.HasNoKey();
               });  
 
-               modelBuilder.Entity<DeductionAddingButEmployeeIDsNotPresent>(entity=>
+                modelBuilder.Entity<DeductionAddingButEmployeeIDsNotPresent>(entity=>
               {
                   entity.HasNoKey();
               });  
+
+              modelBuilder.Entity<IncrementsAddingButEmployeeIDsNotPresent>(entity=>
+              {
+                  entity.HasNoKey();
+              }); 
+
+               modelBuilder.Entity<IncrementResponseInJson>(entity=>
+              {
+                  entity.HasNoKey();
+              }); 
 
             
           }

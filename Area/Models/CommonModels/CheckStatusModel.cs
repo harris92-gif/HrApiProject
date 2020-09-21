@@ -21,6 +21,9 @@ namespace HrApiProject.Area.Models.CommonModels
 
         [Column("checkdeductionid")]
         public bool DeductionIDStatus {get; set;}
+        
+        [Column("checkincrementid")]      
+        public bool IncrementIDStatus { get; set; }
 
         
     }

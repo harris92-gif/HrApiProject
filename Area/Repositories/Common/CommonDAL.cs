@@ -97,13 +97,29 @@ namespace HrApiProject.Area.Repositories.Common
             var deductionId = new Npgsql.NpgsqlParameter("@thedeductionid",deductionID);
 
             
-              CheckStatusModel checkStatusModel = await Task.Run(()=>_projectContextDB.CheckStatusModel.FromSqlRaw("select * from checkdeductionid(@thebusinessid,@thedeductionid) as checkemployeeid",businessId,deductionId)
+              CheckStatusModel checkStatusModel = await Task.Run(()=>_projectContextDB.CheckStatusModel.FromSqlRaw("select * from checkdeductionid(@thebusinessid,@thedeductionid)",businessId,deductionId)
             .Select(e => new CheckStatusModel()
             {
                 DeductionIDStatus = e.DeductionIDStatus
             }).FirstOrDefault()); 
 
            return checkStatusModel.DeductionIDStatus; 
+
+        }
+
+         public async Task<bool> CheckIncrementID(Guid businessID,Guid incrementID)
+        {
+            var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+            var incrementId = new Npgsql.NpgsqlParameter("@theincrementid",incrementID);
+
+            
+              CheckStatusModel checkStatusModel = await Task.Run(()=>_projectContextDB.CheckStatusModel.FromSqlRaw("select * from checkincrementid(@thebusinessid,@theincrementid) ",businessId,incrementId)
+            .Select(e => new CheckStatusModel()
+            {
+                IncrementIDStatus = e.IncrementIDStatus
+            }).FirstOrDefault()); 
+
+           return checkStatusModel.IncrementIDStatus; 
 
         }
 

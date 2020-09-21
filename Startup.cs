@@ -21,6 +21,7 @@ using HrApiProject.Area.Repositories.Salary;
 using HrApiProject.Area.Repositories.Common;
 using HrApiProject.Area.Repositories.BusinessUsers;
 using HrApiProject.Area.Repositories.Deductions;
+using HrApiProject.Area.Repositories.Increments;
 
 namespace HrApiProject
 {
@@ -84,6 +85,11 @@ namespace HrApiProject
            services.AddScoped<DeductionDAL>();
            services.AddScoped<DeductionResponseMessages>();
            services.AddScoped<DeductionValidation>();
+
+           services.AddScoped<IIncrementsLogic, IncrementsLogic>();
+           services.AddScoped<IncrementsDAL>();
+           services.AddScoped<IncrementsResponseMessages>();
+           services.AddScoped<IncrementsValidation>();
 
 
 
