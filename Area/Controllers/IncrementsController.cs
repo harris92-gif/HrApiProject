@@ -111,6 +111,25 @@ namespace HrApiProject.Area.Controllers
             return _commonValidation.BusinessIdNotExists(businessID);
         }
 
+        [HttpGet("ShowIncrementsByEmployeeId")]
+        public async Task<object> ShowIncrementsByEmployeeId(Guid businessID,Guid employeeID)
+        {
+            var checkBusinessId = await _commonLogic.CheckBusinessID(businessID);
+            if(checkBusinessId)
+            {
+                
+                    var response = await _incrementsLogic.ShowIncrementsByemployeeId(businessID,employeeID);
+                    if(response!=null)
+                    {
+                        return response;
+                    }
+                  
+                return _commonValidation.NoRecordFound();
+
+            }
+            return _commonValidation.BusinessIdNotExists(businessID);
+        }
+
 
     }
 }

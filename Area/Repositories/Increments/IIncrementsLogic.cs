@@ -12,6 +12,8 @@ namespace HrApiProject.Area.Repositories.Increments
         Task<object> ShowAllIncrements(Guid businessID);
 
         Task<object> ShowIncrementById(Guid businessID,Guid incrementID);
+        Task<object> ShowIncrementsByemployeeId(Guid businessID,Guid employeeID);
+
 
 
 

@@ -33,5 +33,10 @@ namespace HrApiProject.Area.Repositories.Increments
         {
             return _incrementsDAL.ShowIncrementById(businessID,incrementID);
         }
+
+        public Task<object> ShowIncrementsByemployeeId(Guid businessID, Guid employeeID)
+        {
+            return _incrementsDAL.ShowIncrementsByemployeeId(businessID,employeeID);
+        }
     }
 }
