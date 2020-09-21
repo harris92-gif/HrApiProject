@@ -111,9 +111,30 @@ namespace HrApiProject.Area.Repositories.Increments
             return null;    
         }
 
-        
+        public async Task<object> ShowIncrementsByemployeeId(Guid businessID,Guid employeeID)
+        {
+            var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+            var employeeId = new Npgsql.NpgsqlParameter("@theemployeeid",employeeID);
 
 
+            List<IncrementResponseInJson> incrementResponseInJson = await Task.Run(()=>_projectContextDB.IncrementResponseInJson.
+            FromSqlRaw("select * from showincrementsbyemployeeid(@thebusinessid,@theemployeeid)",businessId,employeeId).
+            Select(e=> new IncrementResponseInJson()
+            {
+                IncrementDetails = e.IncrementDetails
+            }).ToList());
 
+           foreach(IncrementResponseInJson ir in incrementResponseInJson)
+           {
+               if(ir.IncrementDetails!=null)
+               {                 
+                    List<IncrementsResponse> incrementsResponse = JsonConvert.DeserializeObject<List<IncrementsResponse>>(incrementResponseInJson.FirstOrDefault().IncrementDetails);
+                    var response = new {Success = "OK" , incrementsResponse};
+                    return response;                 
+               }
+           }               
+          
+            return null;    
+        }
     }
 }
