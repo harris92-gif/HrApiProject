@@ -44,6 +44,7 @@ namespace HrApiProject
 
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddHttpContextAccessor();
         
 
            services.AddScoped<IBusinessLogic, BusinessLogic>();

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HrApiProject.Area.Models;
 using HrApiProject.Area.Models.CommonModels;
 using HrApiProject.Area.Models.Employee;
+using HrApiProject.Area.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 using NpgsqlTypes;
 
@@ -14,9 +15,12 @@ namespace HrApiProject.Area.Repositories.Employee
     public class EmployeeDAL
     {
         private ProjectContextDB _projectContextDB;
-        public EmployeeDAL(ProjectContextDB projectContextDB)
+        private readonly ICommonLogic _commonLogic;
+
+        public EmployeeDAL(ProjectContextDB projectContextDB, ICommonLogic commonLogic)
         {
-            _projectContextDB= projectContextDB;
+            _projectContextDB = projectContextDB;
+            _commonLogic=commonLogic;
         }
 
         public async Task<bool> AddEmployeeWithDetails(Guid BusinessID , EmployeeModel employeeModel) 
@@ -234,7 +238,66 @@ namespace HrApiProject.Area.Repositories.Employee
                 return employeeResponse;
             }
             return null;
+             
+        }
+
+        public async Task<object> ExportAllEmployees(Guid businessID,string fileType)
+        {
+            try 
+            {
             
+                string downlaodUrl = null;
+                string folder = FoldersNames.ExportedData;
+
+                var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+
+                var listOfEmployeesDataToBeExport = await Task.Run(()=>_projectContextDB.ExportEmployeeModels.
+                FromSqlRaw("select * from exportallemployees(@thebusinessid)",businessId)
+                .Select(e=> new ExportEmployeeModel()
+                {
+                    EmployeeName = e.EmployeeName,
+                    EmployeeGender =e.EmployeeGender,
+                    EmployeeSSN =e.EmployeeSSN,
+                    DepartmentName=e.DepartmentName,select * from  "ba9664be-b8a3-4b30-9f98-6c7f3fe87e48".tblemployeedetails t2 
+
+                    CreationDate= Convert.ToString(e.CreationDate),
+                    Status= e.Status,
+                    BPS=e.BPS,
+                    EmpDesignation = e.EmpDesignation,
+                    PACountry=e.PACountry,
+                    PACity = e.PACity,
+                    PAProvince = e.PAProvince,
+                    PAZip = e.PAZip,
+                    MACountry = e.MACountry,
+                    MACity = e.MACity,
+                    MAProvince = e.MAProvince,
+                    MAZip = e.MAZip,
+                    EmpEmail = e.EmpEmail,
+                    EmpJoiningDate=Convert.ToString(e.EmpJoiningDate),
+                    EmpAppointmentDate=Convert.ToString(e.EmpAppointmentDate),
+                    Description =e.Description,
+                    Photo = e.Photo,
+                    SkypeUserName= e.SkypeUserName,
+                    EmpOfficeNo= e.EmpOfficeNo,
+                    EmpCellNo = e.EmpCellNo
+                    
+                }).ToList());
+
+
+                if(fileType.ToLower()=="excel")
+                {
+                    downlaodUrl = _commonLogic.ExportToExcel(listOfEmployeesDataToBeExport,folder);
+                }
+                
+                var exportedData = new {Success = "OK" , Data = downlaodUrl};
+
+                return exportedData;
+            }    
+            catch(Exception e)
+            {
+                return null;
+            }
+
         }
 
 

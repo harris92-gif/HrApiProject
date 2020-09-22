@@ -1,15 +1,20 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using OfficeOpenXml;
 
 namespace HrApiProject.Area.Repositories.Common
 {
     public class CommonLogic : ICommonLogic
     {
         private readonly CommonDAL _commonDAL;
+        private readonly HttpContext _httpContextAccessor;
 
-        public CommonLogic(CommonDAL commonDAL)
+        public CommonLogic(CommonDAL commonDAL, IHttpContextAccessor httpContextAccessor)
         {
             _commonDAL = commonDAL;
+            _httpContextAccessor= httpContextAccessor.HttpContext;
         }
 
         public Task<bool> CheckBusinessID(Guid businessID)
@@ -48,5 +53,40 @@ namespace HrApiProject.Area.Repositories.Common
         {
             return _commonDAL.CheckIncrementID(businessID,incrementID);
         }
+
+
+         public string ExportToExcel(dynamic data , string folderName)
+        {
+            string excelFileName =  $"List-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx"; 
+            string downloadUrl = string.Format("{0}://{1}/{2}", _httpContextAccessor.Request.Scheme, _httpContextAccessor.Request.Host, folderName + "/" + excelFileName);  
+
+            if(!Directory.Exists(folderName))
+            {
+                Directory.CreateDirectory(folderName);
+            }
+
+            FileInfo file = new FileInfo(Path.Combine(folderName,excelFileName));
+
+            if(file.Exists)
+            {
+                file.Delete();
+                file = new FileInfo(Path.Combine(folderName,excelFileName));
+
+            }
+
+            using(var package = new ExcelPackage(file))
+            {
+                var workSheet = package.Workbook.Worksheets.Add("sheet1");
+                workSheet.Cells.LoadFromCollection(data,true);
+                package.Save();
+            }
+
+            return downloadUrl;
+
+            
+        }
+
+
+
     }
 }

@@ -46,3 +46,14 @@
 /home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/System.ComponentModel.Annotations.dll
 /home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/System.Diagnostics.DiagnosticSource.dll
 /home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/EPPlus.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.FileExtensions.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Json.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Physical.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileSystemGlobbing.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/System.Security.Cryptography.Cng.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/System.Text.Encoding.CodePages.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/System.Xml.XPath.XmlDocument.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/runtimes/win/lib/netcoreapp3.0/System.Security.Cryptography.Cng.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/runtimes/win/lib/netcoreapp2.0/System.Text.Encoding.CodePages.dll

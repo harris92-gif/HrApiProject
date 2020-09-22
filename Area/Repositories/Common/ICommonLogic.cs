@@ -16,11 +16,6 @@ namespace HrApiProject.Area.Repositories.Common
 
         Task<bool> CheckIncrementID(Guid businessID,Guid incrementID);
 
-
-
-
-
-
-
+        string ExportToExcel(dynamic data , string folderName);
     }
 }
