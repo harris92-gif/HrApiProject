@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using HrApiProject.Area.Models.Employee;
+using HrApiProject.Area.Repositories.Common;
 using HrApiProject.Area.Repositories.Employee;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +14,15 @@ namespace HrApiProject.Area.Controllers
     {
         private readonly IEmployeeLogic _employeeLogic;
         private readonly EmployeeValidation _employeeValidation;
+        private readonly ICommonLogic _commonLogic;
+        private readonly CommonValidation _commonValidation;
 
-        public EmployeeController(IEmployeeLogic employeeLogic,EmployeeValidation employeeValidation)
+        public EmployeeController(IEmployeeLogic employeeLogic,EmployeeValidation employeeValidation,ICommonLogic commonLogic,CommonValidation commonValidation)
         {
             _employeeLogic= employeeLogic;
             _employeeValidation = employeeValidation;
+            _commonLogic=commonLogic;
+            _commonValidation= commonValidation;
         }
 
 
@@ -100,6 +105,19 @@ namespace HrApiProject.Area.Controllers
              }
              return _employeeValidation.NoEmployeeFound();
          }
+
+        [HttpGet("ExportAllEmployees")]
+        public async Task<object> ExportAllEmployees(Guid businessID,string fileType)
+        {
+            var checkBusinessId = await _commonLogic.CheckBusinessID(businessID);
+            if(checkBusinessId)
+            {
+                return await  _employeeLogic.ExportAllEmployees(businessID,fileType);
+            }
+            return _commonValidation.BusinessIdNotExists(businessID);
+
+        }
+
 
 
 

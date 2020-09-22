@@ -43,5 +43,10 @@ namespace HrApiProject.Area.Repositories.Employee
         {
             return _employeeDAL.ShowEmployeesWithDetailsByID(businessID,employeeID);
         }
+
+        public Task<object> ExportAllEmployees(Guid businessID, string fileType)
+        {
+            return _employeeDAL.ExportAllEmployees(businessID,fileType);
+        }
     }
 }

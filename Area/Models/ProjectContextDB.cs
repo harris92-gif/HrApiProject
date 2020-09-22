@@ -48,6 +48,8 @@ namespace HrApiProject.Area.Models
          public DbSet<DeductionAddingButEmployeeIDsNotPresent> DeductionAddingButEmployeeIDsNotPresent {get; set;}         
         public DbSet<IncrementsAddingButEmployeeIDsNotPresent> IncrementsAddingButEmployeeIDsNotPresent {get; set;}
         public DbSet<IncrementResponseInJson> IncrementResponseInJson {get; set;}
+        public DbSet<ExportEmployeeModel> ExportEmployeeModels {get; set;}
+
 
 
 
@@ -101,6 +103,11 @@ namespace HrApiProject.Area.Models
               }); 
 
                modelBuilder.Entity<IncrementResponseInJson>(entity=>
+              {
+                  entity.HasNoKey();
+              }); 
+
+              modelBuilder.Entity<ExportEmployeeModel>(entity=>
               {
                   entity.HasNoKey();
               }); 

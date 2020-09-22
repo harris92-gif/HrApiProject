@@ -13,6 +13,9 @@ namespace HrApiProject.Area.Repositories.Employee
         Task<object> ShowAllEmployeesWithDetails(Guid businessID);  
         Task<object> ShowEmployeesWithDetailsByID(Guid businessID,Guid employeeID); 
 
+        Task<object> ExportAllEmployees(Guid businessID,string fileType);
+
+
 
 
         
