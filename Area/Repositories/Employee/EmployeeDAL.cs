@@ -258,7 +258,7 @@ namespace HrApiProject.Area.Repositories.Employee
                     EmployeeName = e.EmployeeName,
                     EmployeeGender =e.EmployeeGender,
                     EmployeeSSN =e.EmployeeSSN,
-                    DepartmentName=e.DepartmentName,select * from  "ba9664be-b8a3-4b30-9f98-6c7f3fe87e48".tblemployeedetails t2 
+                    DepartmentName=e.DepartmentName,
 
                     CreationDate= Convert.ToString(e.CreationDate),
                     Status= e.Status,
