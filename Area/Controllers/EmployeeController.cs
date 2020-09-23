@@ -72,7 +72,7 @@ namespace HrApiProject.Area.Controllers
             return _employeeValidation.EmployeeIdDoesNotExist(theEmployeeId);
         }
 
-
+        
         [HttpPost("ActivateEmployeeById")]
         public  async Task<object> ActivateEmployeeById(Guid theBusinessId ,Guid theEmployeeId)
         {
