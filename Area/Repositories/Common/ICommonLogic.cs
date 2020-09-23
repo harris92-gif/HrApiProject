@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace HrApiProject.Area.Repositories.Common
@@ -17,5 +19,9 @@ namespace HrApiProject.Area.Repositories.Common
         Task<bool> CheckIncrementID(Guid businessID,Guid incrementID);
 
         string ExportToExcel(dynamic data , string folderName);
+
+        DataTable ToDataTable<T>(List<T> listOfData);
+
+        string ExportToCsv(DataTable dataTable , string folderName);
     }
 }

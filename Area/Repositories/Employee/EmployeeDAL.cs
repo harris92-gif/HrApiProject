@@ -287,7 +287,15 @@ namespace HrApiProject.Area.Repositories.Employee
                 if(fileType.ToLower()=="excel")
                 {
                     downlaodUrl = _commonLogic.ExportToExcel(listOfEmployeesDataToBeExport,folder);
-                }
+                }                
+
+                //create a datatable of this data
+                var listOfemployeesInDataTable = _commonLogic.ToDataTable(listOfEmployeesDataToBeExport);
+                
+                if(fileType.ToLower()=="csv")
+                {
+                    downlaodUrl = _commonLogic.ExportToCsv(listOfemployeesInDataTable,folder);
+                }     
                 
                 var exportedData = new {Success = "OK" , Data = downlaodUrl};
 

@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using OfficeOpenXml;
@@ -57,7 +60,7 @@ namespace HrApiProject.Area.Repositories.Common
 
          public string ExportToExcel(dynamic data , string folderName)
         {
-            string excelFileName =  $"List-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx"; 
+            string excelFileName =  $"List-{DateTime.Now.ToString("yyyy-MM-dd,HH:mm:ss")}.xlsx"; 
             string downloadUrl = string.Format("{0}://{1}/{2}", _httpContextAccessor.Request.Scheme, _httpContextAccessor.Request.Host, folderName + "/" + excelFileName);  
 
             if(!Directory.Exists(folderName))
@@ -86,7 +89,98 @@ namespace HrApiProject.Area.Repositories.Common
             
         }
 
+        public DataTable ToDataTable<T>(List<T> listOfData)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
 
+            //get all the properties
+            PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
+            foreach(var property in properties)
+            {
+                //setting properties names as columns names
+                dataTable.Columns.Add(property.Name);
+            }
+
+            foreach(T data in listOfData)
+            {
+                var values = new object[properties.Length];
+
+                //inserting property values to datatable rows
+                for(int i = 0 ; i<properties.Length; i++)
+                {                    
+                    values[i] = properties[i].GetValue(data,null);
+                }
+
+                dataTable.Rows.Add(values);
+            }
+
+            return dataTable;
+        }
+
+        public string ExportToCsv(DataTable dataTable, string folderName)
+        {
+            string csvName = $"List-{DateTime.Now.ToString("yyyy-mm-dd,hh:mm:ss")}.csv";
+            string downloadUrl = string.Format("{0}//{1}:{2}",_httpContextAccessor.Request.Scheme,_httpContextAccessor.Request.Host,folderName + "/" + csvName);
+
+            if(!Directory.Exists(folderName))
+            {
+                Directory.CreateDirectory(folderName);
+            }
+
+            FileInfo csvFile = new FileInfo(Path.Combine(folderName,csvName));
+            if(csvFile.Exists)
+            {
+                csvFile.Delete();
+                csvFile = new FileInfo(Path.Combine(folderName,csvName));   
+            }
+
+            //writing to csv file
+            StreamWriter sw = new StreamWriter(Convert.ToString(csvFile),false);
+
+            //writing headers columns
+            for(int i=0 ; i<dataTable.Columns.Count; i++)
+            {
+                sw.Write(dataTable.Columns[i]);
+                if(i<dataTable.Columns.Count-1)
+                {
+                    sw.Write(",");
+                }
+            }
+
+            sw.Write(sw.NewLine);
+
+            //writing data 
+
+            foreach(DataRow dr in dataTable.Rows)
+            {
+                for(int i=0 ; i<dataTable.Columns.Count; i++)
+                {
+                    if(!Convert.IsDBNull(dr[i]))
+                    {
+                        string value = dr[i].ToString();
+
+                        if(value.Contains(","))
+                        {
+                            value=string.Format("\"{0}\"",value);
+                            sw.Write(value);
+                        }
+                        else
+                        {
+                            sw.Write(dr[i].ToString());
+                        }
+                    }
+
+                    if(i<dataTable.Columns.Count -1)
+                    {
+                        sw.Write(",");
+                    }
+                }
+                sw.Write(sw.NewLine);
+            }
+            sw.Close();
+
+            return downloadUrl;
+        }
     }
 }
