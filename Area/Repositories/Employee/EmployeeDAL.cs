@@ -296,6 +296,11 @@ namespace HrApiProject.Area.Repositories.Employee
                 {
                     downlaodUrl = _commonLogic.ExportToCsv(listOfemployeesInDataTable,folder);
                 }     
+
+                if(fileType.ToLower()=="pdf")
+                {
+                    downlaodUrl = _commonLogic.ExportToPdf(listOfemployeesInDataTable,folder);
+                }
                 
                 var exportedData = new {Success = "OK" , Data = downlaodUrl};
 

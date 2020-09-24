@@ -6,6 +6,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using OfficeOpenXml;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace HrApiProject.Area.Repositories.Common
 {
@@ -120,8 +122,8 @@ namespace HrApiProject.Area.Repositories.Common
 
         public string ExportToCsv(DataTable dataTable, string folderName)
         {
-            string csvName = $"List-{DateTime.Now.ToString("yyyy-mm-dd,hh:mm:ss")}.csv";
-            string downloadUrl = string.Format("{0}//{1}:{2}",_httpContextAccessor.Request.Scheme,_httpContextAccessor.Request.Host,folderName + "/" + csvName);
+            string csvName = $"List-{DateTime.Now.ToString("yyyy-MM-dd,hh:mm:ss")}.csv";
+            string downloadUrl = string.Format("{0}://{1}/{2}",_httpContextAccessor.Request.Scheme,_httpContextAccessor.Request.Host,folderName + "/" + csvName);
 
             if(!Directory.Exists(folderName))
             {
@@ -181,6 +183,69 @@ namespace HrApiProject.Area.Repositories.Common
             sw.Close();
 
             return downloadUrl;
+        }
+
+        public string ExportToPdf(DataTable dataTable, string folderName)
+        {
+            string pdfName = $"EmployeesList-{DateTime.Now.ToString("yyyy-MM-dd,hh:mm:ss")}.pdf";
+            string downloadUrl = string.Format("{0}://{1}/{2}", _httpContextAccessor.Request.Scheme, _httpContextAccessor.Request.Host,folderName + "/" + pdfName);
+
+            if(!Directory.Exists(folderName))
+            {
+                Directory.CreateDirectory(folderName);
+            }
+
+            FileInfo pdfFile = new FileInfo(Path.Combine(folderName,pdfName));
+
+            if(pdfFile.Exists)
+            {
+                pdfFile.Delete();
+                pdfFile = new FileInfo(Path.Combine(folderName,pdfName));
+            }
+
+            Document document = new Document(iTextSharp.text.PageSize.A1);
+
+            PdfWriter pdfWriter = PdfWriter.GetInstance(document,new FileStream(Convert.ToString(pdfFile),FileMode.Create));
+
+            document.Open();
+
+            PdfPTable pdfTable = new  PdfPTable(dataTable.Columns.Count);
+
+            pdfTable.WidthPercentage =100;
+
+
+            //setting pdf columns names
+            for(int k=0;k<dataTable.Columns.Count;k++)
+            {
+                PdfPCell pdfCell = new PdfPCell(new Phrase(dataTable.Columns[k].ColumnName));
+                pdfCell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                pdfCell.VerticalAlignment = PdfPCell.ALIGN_CENTER;
+
+                //cell.BackgroundColor = new iTextSharp.text.BaseColor(51, 102, 102);
+
+                pdfTable.AddCell(pdfCell);
+            }
+
+            //inserting data of datatabls to pdf file
+
+            for(int i=0; i<dataTable.Rows.Count; i++)
+            {
+                for(int j=0;j<dataTable.Columns.Count;j++)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(dataTable.Rows[i][j].ToString()));
+
+                    cell.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                    cell.VerticalAlignment = PdfPCell.ALIGN_CENTER;
+
+                    pdfTable.AddCell(cell);
+                }
+            }
+
+            document.Add(pdfTable);
+            document.Close();
+
+            return downloadUrl;
+
         }
     }
 }

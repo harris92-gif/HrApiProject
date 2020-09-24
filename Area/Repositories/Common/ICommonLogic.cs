@@ -23,5 +23,7 @@ namespace HrApiProject.Area.Repositories.Common
         DataTable ToDataTable<T>(List<T> listOfData);
 
         string ExportToCsv(DataTable dataTable , string folderName);
+        string ExportToPdf(DataTable dataTable , string folderName);
+
     }
 }
