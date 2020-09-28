@@ -45,6 +45,7 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+
          public async Task<bool> CheckSalaryID(Guid businessID,Guid salaryID)
         {
             var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
@@ -120,6 +121,23 @@ namespace HrApiProject.Area.Repositories.Common
             }).FirstOrDefault()); 
 
            return checkStatusModel.IncrementIDStatus; 
+
+        }
+
+
+         public async Task<bool> CheckAttendaceID(Guid businessID,Guid attendanceID)
+        {
+            var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+            var attendanceId = new Npgsql.NpgsqlParameter("@theattendanceid",attendanceID);
+
+            
+              CheckStatusModel checkStatusModel = await Task.Run(()=>_projectContextDB.CheckStatusModel.FromSqlRaw("select * from checkattendanceid(@thebusinessid,@theattendanceid) as checkattendanceid",businessId,attendanceId)
+            .Select(e => new CheckStatusModel()
+            {
+                AttendanceIDStatus = e.AttendanceIDStatus
+            }).FirstOrDefault()); 
+
+           return checkStatusModel.AttendanceIDStatus; 
 
         }
 

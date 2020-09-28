@@ -63,3 +63,4 @@
 /home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/PdfSharp.dll
 /home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/de/PdfSharp.Charting.resources.dll
 /home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/de/PdfSharp.resources.dll
+/home/asimali/Desktop/HrApiProject/bin/Debug/netcoreapp3.1/CsvHelper.dll

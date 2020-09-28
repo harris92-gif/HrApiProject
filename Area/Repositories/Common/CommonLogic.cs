@@ -187,12 +187,12 @@ namespace HrApiProject.Area.Repositories.Common
 
         public string ExportToPdf(DataTable dataTable, string folderName)
         {
-            string pdfName = $"EmployeesList-{DateTime.Now.ToString("yyyy-MM-dd,hh:mm:ss")}.pdf";
+            string pdfName = $"List-{DateTime.Now.ToString("yyyy-MM-dd,hh:mm:ss")}.pdf";
             string downloadUrl = string.Format("{0}://{1}/{2}", _httpContextAccessor.Request.Scheme, _httpContextAccessor.Request.Host,folderName + "/" + pdfName);
 
             if(!Directory.Exists(folderName))
             {
-                Directory.CreateDirectory(folderName);
+                Directory.CreateDirectory(folderName); 
             }
 
             FileInfo pdfFile = new FileInfo(Path.Combine(folderName,pdfName));
@@ -246,6 +246,11 @@ namespace HrApiProject.Area.Repositories.Common
 
             return downloadUrl;
 
+        }
+
+        public Task<bool> CheckAttendaceID(Guid businessID, Guid attendanceID)
+        {
+            return _commonDAL.CheckAttendaceID(businessID,attendanceID);
         }
     }
 }

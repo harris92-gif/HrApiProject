@@ -97,7 +97,8 @@ namespace HrApiProject.Area.Controllers
                     {
                         return errors;
                     }
-                    _deductionLogic.UpdateDeductionByID(businessID,deductionID,updateDeductionModel);
+
+                   await  _deductionLogic.UpdateDeductionByID(businessID,deductionID,updateDeductionModel);
 
                     return _deductionValidation.DeductionUpdatedSuccess();
                  }

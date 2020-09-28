@@ -61,7 +61,8 @@ namespace HrApiProject.Area.Controllers
                     {
                         return errors;
                     }
-                    _incrementsLogic.UpdateIncrementByID(businessID,incrementID,incrementsUpdateModel);
+                    
+                    await _incrementsLogic.UpdateIncrementByID(businessID,incrementID,incrementsUpdateModel);
 
                     return _incrementsValidation.IncrementUpdatedSuccess();
 

@@ -1,4 +1,5 @@
 using HrApiProject.Area.Models;
+using HrApiProject.Area.Models.Attendance;
 using HrApiProject.Area.Models.BusinessUsers;
 using HrApiProject.Area.Models.CommonModels;
 using HrApiProject.Area.Models.Deductions;
@@ -49,6 +50,8 @@ namespace HrApiProject.Area.Models
         public DbSet<IncrementsAddingButEmployeeIDsNotPresent> IncrementsAddingButEmployeeIDsNotPresent {get; set;}
         public DbSet<IncrementResponseInJson> IncrementResponseInJson {get; set;}
         public DbSet<ExportEmployeeModel> ExportEmployeeModels {get; set;}
+        public DbSet<AttendanceResponse> AttendanceResponse {get; set;}
+
 
 
 

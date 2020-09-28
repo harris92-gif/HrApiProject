@@ -99,6 +99,15 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+        public object AttendanceIdNotExists(Guid attendanceId)
+        {
+            ResponseList = new List<object>();
+            Success = "Failed";
+            ResponseList.Add(_commonResponseMessages.AttendanceIdNotExists(attendanceId));
+            return this;
+
+        }
+
         
     }
 }

@@ -22,6 +22,7 @@ using HrApiProject.Area.Repositories.Common;
 using HrApiProject.Area.Repositories.BusinessUsers;
 using HrApiProject.Area.Repositories.Deductions;
 using HrApiProject.Area.Repositories.Increments;
+using HrApiProject.Area.Repositories.Attendance;
 
 namespace HrApiProject
 {
@@ -91,6 +92,11 @@ namespace HrApiProject
            services.AddScoped<IncrementsDAL>();
            services.AddScoped<IncrementsResponseMessages>();
            services.AddScoped<IncrementsValidation>();
+
+           services.AddScoped<IAttendanceLogic, AttendanceLogic>();
+           services.AddScoped<AttendanceDAL>();
+           services.AddScoped<AttendanceResponseMessages>();
+           services.AddScoped<AttendanceValidation>();
 
 
 
