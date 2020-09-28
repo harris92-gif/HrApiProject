@@ -99,6 +99,15 @@ namespace HrApiProject.Area.Repositories.Common
 
         }
 
+        public object AttendanceIdNotExists(Guid attendanceId)
+        {
+            ResponseCodesAndMessages rcam = new ResponseCodesAndMessages();
+            rcam.ResponseCode = 2009;
+            rcam.ResponseMessage = "Attendance ID " +attendanceId + " does not exists)";
+            return rcam;
+
+        }
+
         
        
         

@@ -25,5 +25,8 @@ namespace HrApiProject.Area.Repositories.Common
         string ExportToCsv(DataTable dataTable , string folderName);
         string ExportToPdf(DataTable dataTable , string folderName);
 
+        Task<bool> CheckAttendaceID(Guid businessID,Guid attendanceID);
+
+
     }
 }
