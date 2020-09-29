@@ -135,6 +135,19 @@ namespace HrApiProject.Area.Controllers
 
          }
 
+         [HttpGet("ExportAllBusinessUsers")]
+         public async Task<object> ExportAllBusinessUsers(Guid businessID,string fileType)
+         {
+            var checkBusinessId =   await _commonLogic.CheckBusinessID(businessID); 
+            if(checkBusinessId)
+            {
+                return await _businessUsersLogic.ExportAllBusinessUsers(businessID,fileType);
+
+            }   
+            return   _commonValidation.BusinessIdNotExists(businessID);   
+
+         }
+
 
         
     }

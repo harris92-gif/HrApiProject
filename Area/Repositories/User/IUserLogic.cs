@@ -13,6 +13,9 @@ namespace HrApiProject.Area.Repositories.User
         Task<object> ShowAllUsers() ;
         Task<object> ShowUserById(Guid userID) ;
 
+        Task<Object> ExportAllUsers(string fileType);
+
+
 
 
 

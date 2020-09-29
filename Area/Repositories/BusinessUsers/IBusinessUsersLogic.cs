@@ -11,6 +11,9 @@ namespace HrApiProject.Area.Repositories.BusinessUsers
         Task<object> ShowAllBusinessUsers(Guid businessID) ;
         Task<object> ShowBusinessUserByBuId(Guid businessID,Guid businesUserID) ;
 
+        Task<Object> ExportAllBusinessUsers(Guid businessID , string fileType);
+
+
 
 
 

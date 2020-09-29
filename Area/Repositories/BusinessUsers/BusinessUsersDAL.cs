@@ -7,16 +7,19 @@ using HrApiProject.Area.Models;
 using HrApiProject.Area.Models.BusinessUsers;
 using HrApiProject.Area.Models.CommonModels;
 using Microsoft.EntityFrameworkCore;
+using HrApiProject.Area.Repositories.Common;
 
 namespace HrApiProject.Area.Repositories.BusinessUsers
 {
     public class BusinessUsersDAL
     {
         private  readonly ProjectContextDB _projectContextDB;
+        private readonly ICommonLogic _commonLogic;
 
-        public BusinessUsersDAL(ProjectContextDB projectContextDB)
+        public BusinessUsersDAL(ProjectContextDB projectContextDB, ICommonLogic commonLogic)
         {
             _projectContextDB = projectContextDB;
+            _commonLogic = commonLogic;
         }
 
          public async Task<bool> AddBusinessUser(Guid businessID ,Guid userID) 
@@ -112,6 +115,56 @@ namespace HrApiProject.Area.Repositories.BusinessUsers
             }
             return null;            
           
+        }
+
+
+        public async Task<Object> ExportAllBusinessUsers(Guid businessID , string fileType)
+        {
+
+            try
+            {
+                string downloadUrl = null;
+                string folder = FoldersNames.ExportedData;
+
+                var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+
+                var listOfBusinessUsersToExport = await Task.Run(()=>_projectContextDB.ExportBusinessUsersModel.
+                FromSqlRaw("select * from exportallbusinessusers(@thebusinessid)",businessId)
+                .Select(e=>new ExportBusinessUsersModel()
+                {
+                    BusinessName = e.BusinessName,
+                    UserName = e.UserName
+                }).ToList());
+
+                if(fileType.ToLower() == "excel")
+                {
+                    downloadUrl = _commonLogic.ExportToExcel(listOfBusinessUsersToExport,folder);
+                }
+
+                //create a datatable of this data
+                var listOfBusinessUsersInDataTable = _commonLogic.ToDataTable(listOfBusinessUsersToExport);
+
+
+                if(fileType.ToLower()=="csv")
+                {
+                    downloadUrl = _commonLogic.ExportToCsv(listOfBusinessUsersInDataTable,folder);
+                }
+
+                if(fileType.ToLower()=="pdf")
+                {
+                    downloadUrl = _commonLogic.ExportToPdf(listOfBusinessUsersInDataTable,folder);
+                }
+
+                var exportedData = new {Success = "OK" , Data = downloadUrl};
+
+                return exportedData;
+            }
+
+            catch(Exception e)
+            {
+                return null;
+            }
+
         }
 
 

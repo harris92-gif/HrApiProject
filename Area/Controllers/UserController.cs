@@ -109,6 +109,13 @@ namespace HrApiProject.Area.Controllers
             
         }
 
+        [HttpGet("ExportAllUsers")]
+        public async Task<Object> ExportAllUsers(string fileType)
+        {
+            return await _userLogic.ExportAllUsers(fileType);
+        }
+
+
 
     }
 }

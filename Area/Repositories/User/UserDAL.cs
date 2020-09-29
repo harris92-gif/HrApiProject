@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HrApiProject.Area.Models;
 using HrApiProject.Area.Models.CommonModels;
 using HrApiProject.Area.Models.User;
+using HrApiProject.Area.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace HrApiProject.Area.Repositories.User
@@ -12,10 +13,12 @@ namespace HrApiProject.Area.Repositories.User
     public class UserDAL
     {
         private readonly ProjectContextDB _projectContextDB;
+        private readonly ICommonLogic _commonLogic;
 
-        public UserDAL(ProjectContextDB projectContextDB)
+        public UserDAL(ProjectContextDB projectContextDB, ICommonLogic commonLogic)
         {
-            _projectContextDB=projectContextDB;            
+            _projectContextDB=projectContextDB;     
+            _commonLogic = commonLogic;       
         }
 
         public async Task<bool> AddUser( UserModel userModel) 
@@ -141,6 +144,55 @@ namespace HrApiProject.Area.Repositories.User
             }
             return null;
           
+        }
+
+        public async Task<Object> ExportAllUsers(string fileType)
+        {
+            try
+            {
+                string downloadUrl = null;
+                string folder = FoldersNames.ExportedData;
+
+                var listOfUsersToBeExported = await Task.Run(()=>_projectContextDB.ExportUserModel
+                .FromSqlRaw("select * from Exportallusers()")
+                .Select(e=>new userExportUserModel()
+                {
+                    UserName = e.UserName,
+                    UserFirstName = e.UserFirstName,
+                    UserLastName = e.UserLastName,
+                    UserEmail = e.UserEmail,
+                    UserContact = e.UserContact
+                }).ToList());
+
+
+                if(fileType.ToLower()=="excel")
+                {
+                    downloadUrl  = _commonLogic.ExportToExcel(listOfUsersToBeExported,folder);
+                }
+
+                var listOfUserInDataTable = _commonLogic.ToDataTable(listOfUsersToBeExported);
+
+                if(fileType.ToLower()=="csv")
+                {
+                    downloadUrl  = _commonLogic.ExportToCsv(listOfUserInDataTable,folder);
+                }
+
+                if(fileType.ToLower()=="pdf")
+                {
+                    downloadUrl  = _commonLogic.ExportToPdf(listOfUserInDataTable,folder);
+                }
+
+                var exportedData = new {Success = "OK" , Data  = downloadUrl};
+
+                return exportedData;
+
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+            
+
         }
 
 

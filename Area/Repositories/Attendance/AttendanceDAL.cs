@@ -75,9 +75,7 @@ namespace HrApiProject.Area.Repositories.Attendance
             {
                 Direction = ParameterDirection.InputOutput,
                 Value = !string.IsNullOrEmpty(theToDate)  ? Convert.ToDateTime(theToDate)  : (object)DBNull.Value
-            };
-
-            
+            };           
            
 
              List<AttendanceResponse> attendanceResponse = await Task.Run(()=> projectContextDB.AttendanceResponse

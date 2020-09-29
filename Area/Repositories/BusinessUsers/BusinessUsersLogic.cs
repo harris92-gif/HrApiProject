@@ -38,5 +38,10 @@ namespace HrApiProject.Area.Repositories.BusinessUsers
         {
             return _businessUsersDAL.ShowBusinessUserByBuId(businessID,businesUserID);
         }
+
+        public Task<object> ExportAllBusinessUsers(Guid businessID, string fileType)
+        {
+            return _businessUsersDAL.ExportAllBusinessUsers(businessID , fileType);
+        }
     }
 }

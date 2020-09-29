@@ -51,6 +51,10 @@ namespace HrApiProject.Area.Models
         public DbSet<IncrementResponseInJson> IncrementResponseInJson {get; set;}
         public DbSet<ExportEmployeeModel> ExportEmployeeModels {get; set;}
         public DbSet<AttendanceResponse> AttendanceResponse {get; set;}
+        public DbSet<ExportBusinessUsersModel> ExportBusinessUsersModel {get; set;}
+        public DbSet<ExportUserModel> ExportUserModel {get; set;}
+
+
 
 
 
@@ -111,6 +115,16 @@ namespace HrApiProject.Area.Models
               }); 
 
               modelBuilder.Entity<ExportEmployeeModel>(entity=>
+              {
+                  entity.HasNoKey();
+              }); 
+
+              modelBuilder.Entity<ExportBusinessUsersModel>(entity=>
+              {
+                  entity.HasNoKey();
+              }); 
+              
+              modelBuilder.Entity<ExportUserModel>(entity=>
               {
                   entity.HasNoKey();
               }); 
