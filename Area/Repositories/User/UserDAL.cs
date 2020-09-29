@@ -155,7 +155,7 @@ namespace HrApiProject.Area.Repositories.User
 
                 var listOfUsersToBeExported = await Task.Run(()=>_projectContextDB.ExportUserModel
                 .FromSqlRaw("select * from Exportallusers()")
-                .Select(e=>new userExportUserModel()
+                .Select(e=>new ExportUserModel()
                 {
                     UserName = e.UserName,
                     UserFirstName = e.UserFirstName,
