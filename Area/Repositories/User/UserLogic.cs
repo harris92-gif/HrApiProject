@@ -42,5 +42,10 @@ namespace HrApiProject.Area.Repositories.User
         {
             return _userDAL.ShowUserById(userID);
         }
+
+        public Task<object> ExportAllUsers(string fileType)
+        {
+            return _userDAL.ExportAllUsers(fileType);
+        }
     }
 }

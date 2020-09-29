@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using OfficeOpenXml;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Drawing;
+using OfficeOpenXml.Style;
 
 namespace HrApiProject.Area.Repositories.Common
 {
@@ -82,8 +84,21 @@ namespace HrApiProject.Area.Repositories.Common
             using(var package = new ExcelPackage(file))
             {
                 var workSheet = package.Workbook.Worksheets.Add("sheet1");
+                
+                //styling up the first row
+                
+                using(ExcelRange excelRange =  workSheet.Cells[1,1,1,50])   //first 1 represent from which row you want to start select  , second 1 tells from which column of the already selected row , third 50 represent to which row to select and 4th value i.e 50 represent to which col of the row to select 
+                {
+                    // excelRange.Style.Font.Color.SetColor(Color.White);
+                    excelRange.Style.Font.Bold=true;
+                    // excelRange.Style.Fill.PatternType = ExcelFillStyle.Solid;  
+                    // excelRange.Style.Fill.BackgroundColor.SetColor(Color.Gray);
+                }
+
                 workSheet.Cells.LoadFromCollection(data,true);
                 package.Save();
+
+                
             }
 
             return downloadUrl;
