@@ -41,9 +41,9 @@ namespace HrApiProject.Area.Repositories.Department
             return _departmentDAL.ActivateDepartmentById(BusinessID,DepartmentID);
         }
 
-
-
-
-        
+        public Task<object> ExportAllDepartments(Guid businessID, string fileType)
+        {
+            return _departmentDAL.ExportAllDepartments(businessID , fileType);
+        }
     }
 }
