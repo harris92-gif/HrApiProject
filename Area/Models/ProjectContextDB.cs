@@ -54,6 +54,9 @@ namespace HrApiProject.Area.Models
         public DbSet<ExportBusinessUsersModel> ExportBusinessUsersModel {get; set;}
         public DbSet<ExportUserModel> ExportUserModel {get; set;}
 
+        public DbSet<ExportDepartmentModel> ExportDepartmentModel {get; set;}
+
+
 
 
 
@@ -125,6 +128,11 @@ namespace HrApiProject.Area.Models
               }); 
               
               modelBuilder.Entity<ExportUserModel>(entity=>
+              {
+                  entity.HasNoKey();
+              }); 
+
+              modelBuilder.Entity<ExportDepartmentModel>(entity=>
               {
                   entity.HasNoKey();
               }); 

@@ -13,6 +13,9 @@ namespace HrApiProject.Area.Repositories.Department
         Task<bool> UpdateDepartmentById(Guid BusinessID,Guid DepartmentID,DepartmentModel departmentModel );
         Task<bool> InActivateDepartmentById(Guid BusinessID,Guid DepartmentID);
         Task<bool> ActivateDepartmentById(Guid BusinessID,Guid DepartmentID);
+
+        Task<object> ExportAllDepartments(Guid businessID,string fileType);
+
                 
     }
 }

@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using HrApiProject.Area.Models;
+using HrApiProject.Area.Models.CommonModels;
 using HrApiProject.Area.Models.Department;
+using HrApiProject.Area.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace HrApiProject.Area.Repositories.Department
@@ -10,9 +12,12 @@ namespace HrApiProject.Area.Repositories.Department
     public class DepartmentDAL
     {
         private readonly ProjectContextDB _projectContextDB;
-        public DepartmentDAL(ProjectContextDB projectContextDB)
+        private readonly ICommonLogic _commonLogic;
+
+        public DepartmentDAL(ProjectContextDB projectContextDB , ICommonLogic commonLogic)
         {
             _projectContextDB= projectContextDB;
+            _commonLogic = commonLogic;
         }
 
         public async Task<object> AddNewDepartment(Guid BusinessId , DepartmentModel departmentModel)
@@ -120,6 +125,56 @@ namespace HrApiProject.Area.Repositories.Department
             }
             return true;
             
+        }
+
+
+
+        public async Task<object> ExportAllDepartments(Guid businessID,string fileType)
+        {
+            try 
+            {
+            
+                string downlaodUrl = null;
+                string folder = FoldersNames.ExportedData;
+
+                var businessId = new Npgsql.NpgsqlParameter("@thebusinessid",businessID);
+
+                var listOfDepartmentsDataToBeExport = await Task.Run(()=>_projectContextDB.ExportDepartmentModel.
+                FromSqlRaw("select * from exportalldepartments(@thebusinessid)",businessId)
+                .Select(e=> new ExportDepartmentModel()
+                {
+                   DepartmentName = e.DepartmentName
+                    
+                }).ToList());
+
+
+                if(fileType.ToLower()=="excel")
+                {
+                    downlaodUrl = _commonLogic.ExportToExcel(listOfDepartmentsDataToBeExport,folder);
+                }                
+
+                //create a datatable of this data
+                var listOfDepartmentsInDataTable = _commonLogic.ToDataTable(listOfDepartmentsDataToBeExport);
+                
+                if(fileType.ToLower()=="csv")
+                {
+                    downlaodUrl = _commonLogic.ExportToCsv(listOfDepartmentsInDataTable,folder);
+                }     
+
+                if(fileType.ToLower()=="pdf")
+                {
+                    downlaodUrl = _commonLogic.ExportToPdf(listOfDepartmentsInDataTable,folder);
+                }
+                
+                var exportedData = new {Success = "OK" , Data = downlaodUrl};
+
+                return exportedData;
+            }    
+            catch(Exception e)
+            {
+                return null;
+            }
+
         }
 
        

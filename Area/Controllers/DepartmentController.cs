@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using HrApiProject.Area.Models.Department;
+using HrApiProject.Area.Repositories.Common;
 using HrApiProject.Area.Repositories.Department;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,16 @@ namespace HrApiProject.Area.Controllers
     {
         private readonly IDepartmentLogic _departmentLogic;
         private readonly DepartmentValidations _departmentValidations;
-        public DepartmentController(IDepartmentLogic departmentLogic,DepartmentValidations departmentValidations)
+        private readonly ICommonLogic _commonLogic;
+        private readonly CommonValidation _commonValidation;
+
+        public DepartmentController(IDepartmentLogic departmentLogic,DepartmentValidations departmentValidations,
+        ICommonLogic commonLogic,CommonValidation commonValidation)
         {
             _departmentLogic = departmentLogic;    
             _departmentValidations=departmentValidations;
+            _commonLogic = commonLogic;
+            _commonValidation = commonValidation;
         }
 
         [HttpPost("AddNewDepartment")]   
@@ -90,6 +97,19 @@ namespace HrApiProject.Area.Controllers
             }
 
             return _departmentValidations.IdDoesNotExists(theDepartmentId);
+
+        }
+
+
+        [HttpGet("ExportAllDepartments")]
+        public async Task<object> ExportAllDepartments(Guid businessID,string fileType)
+        {
+            var checkBusinessId = await _commonLogic.CheckBusinessID(businessID);
+            if(checkBusinessId)
+            {
+                return await  _departmentLogic.ExportAllDepartments(businessID,fileType);
+            }
+            return _commonValidation.BusinessIdNotExists(businessID);
 
         }
 
